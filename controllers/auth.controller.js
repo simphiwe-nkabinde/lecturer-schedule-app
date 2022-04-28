@@ -15,22 +15,29 @@ const createToken = (payload) => {
     return jwt.sign(payload, 'w')   // *issue: setting secret to .env.JWT_SECRET == undefined
 }
 
+
+module.exports.register_get = (req, res) => {
+    res.render('register', { title: 'Register page' });
+}
+module.exports.login_get = (req, res) => {
+    res.render('login', { title: 'Login page' })
+}
+
 /**
  * saves new user email and password into DB
  * @param {*} req { query.email, query.password }
  * @param {*} res 
  */
-module.exports.register = (req, res) => {
-    const { email, password } = req.query
+module.exports.register_post = (req, res) => {
+    const { email, password } = req.body
     // node-postgres
 }
-
 /**
  * verifies user email and password against DB
  * @param {*} req { query.email, query.password , cookie}
  * @param {*} res 
  */
-module.exports.login = (req, res) => {
+module.exports.login_post = (req, res) => {
     const { email, password } = req.query
     // node-postgres
 }
