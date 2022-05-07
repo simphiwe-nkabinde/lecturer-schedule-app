@@ -159,10 +159,12 @@ CREATE TABLE public.alerts(
 	Primary Key(ID),
     FOREIGN KEY (lectureID) REFERENCES public.lecturers (ID)
 );
+
+DROP TABLE IF EXISTS public.schedules;
 CREATE TABLE public.schedules
 (
     ID SERIAL NOT NULL,
-    lectureID integer,
+    lecturerID integer,
     periodID integer,
     departmentID integer,
     monday varchar(255),
@@ -173,10 +175,20 @@ CREATE TABLE public.schedules
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (ID),
-    FOREIGN KEY (lectureID) REFERENCES public.lecturers (ID),
+    FOREIGN KEY (lecturerID) REFERENCES public.lecturers (ID),
     FOREIGN KEY (departmentID) REFERENCES public.departments (ID),
     FOREIGN KEY (periodID) REFERENCES public.periods (ID)
 );
+INSERT INTO public.schedules (lecturerID, periodID, departmentID, monday, tuesday, wednesday, thursday, friday)
+VALUES
+    (1, 1, 5, 'consultation', 'class: dsov23', 'industry visits', '', 'module: fdr195'),
+    (1, 2, 5, 'consultation', '', 'industry visits', 'practical', ''),
+    (1, 3, 5, '', 'module: fdr195', 'industry visits', '', ''),
+    (1, 4, 5, 'class: dsov23', 'module: fdr195', 'industry visits', '', ''),
+    (1, 5, 5, 'consultation', '', 'industry visits', 'practical', 'class: dsov23'),
+    (1, 6, 5, '', 'class: dsov23', 'industry visits', 'practical', ''),
+    (1, 7, 5, 'consultation', '', 'industry visits', 'practical', ''),
+    (1, 8, 5, 'class: dsov23', '', 'industry visits', 'module: fdr195', '');
 
 CREATE UNIQUE INDEX student_unique_lower_email_idx
     ON public.student (lower(email));

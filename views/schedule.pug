@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to Faculties 
+  table 
+    thead 
+        tr
+            th time 
+            th Monday 
+            th Tuesday 
+            th Wednesday 
+            th Thursday 
+            th Friday 
+    tbody             
+        each val in schedule
+            tr  
+                td #{val.time}
+                td #{val.monday}
+                td #{val.tuesday}
+                td #{val.wednesday}
+                td #{val.thursday}
+                td #{val.friday}

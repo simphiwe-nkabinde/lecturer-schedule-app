@@ -4,7 +4,7 @@ const scheduleController = require('../controllers/schedule.controller');
 
 
 //schedule page
-router.get('/:lecturerId', scheduleController.schedule_get)
+router.get('/:lecturerId/:departmentId', scheduleController.schedule_get)
 
 //create new schedule
 router.post('/', scheduleController.schedule_create)
