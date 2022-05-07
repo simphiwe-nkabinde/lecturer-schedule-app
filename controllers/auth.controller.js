@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs')
 const dotenv = require('dotenv');
 dotenv.config()
+const pool = require('../db_connect')
 
 const cookieOptions = {
     httpOnly: true, 

@@ -1,6 +1,6 @@
 const dotenv = require('dotenv');
 dotenv.config()
-
+const pool = require('../db_connect')
 
 module.exports.schedule_get = (req, res) => {
     //res /:lecturerId
