@@ -19,7 +19,4 @@ module.exports.lecturer_get = (req, res) => {
     .catch(err => {
         console.log(err);
     })
-
-
-
 }
