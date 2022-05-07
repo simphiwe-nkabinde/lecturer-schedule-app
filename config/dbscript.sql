@@ -115,15 +115,40 @@ CREATE TABLE public.lecturers(
     updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
 	Primary Key(ID)
 );
+INSERT INTO public.lecturers (name, email, password)
+VALUES
+    ('david', 'david@email.com', 'david123'),
+    ('sipho', 'sipho@email.com', 'sipho123'),
+    ('karabo', 'karabo@email.com', 'karabo123'),
+    ('tina', 'tina@email.com', 'tina123');
 
+DROP TABLE IF EXISTS public.lecturer_department;
 CREATE TABLE public.lecturer_department(
     ID SERIAL NOT NULL,
-    lectureID INT NOT NULL,
+    lecturerID INT NOT NULL,
     departmentID INT NOT NULL,
     PRIMARY kEY (ID),
-    FOREIGN KEY (lectureID) REFERENCES public.lecturers (ID),
+    FOREIGN KEY (lecturerID) REFERENCES public.lecturers (ID),
     FOREIGN KEY (departmentID) REFERENCES public.departments (ID)
 );
+INSERT INTO public.lecturer_department (lecturerID, departmentID)
+VALUES
+    (1, 5),
+    (1, 10),
+    (1, 15),
+    (1, 20),
+    (2, 25),
+    (2, 30),
+    (2, 35),
+    (2, 40),
+    (3, 45),
+    (3, 50),
+    (3, 47),
+    (3, 44),
+    (4, 41),
+    (4, 38),
+    (4, 35),
+    (4, 33);
 
 CREATE TABLE public.alerts(
 	ID serial NOT NULL, 
