@@ -116,6 +116,15 @@ CREATE TABLE public.lecturers(
 	Primary Key(ID)
 );
 
+CREATE TABLE public.lecturer_department(
+    ID SERIAL NOT NULL,
+    lectureID INT NOT NULL,
+    departmentID INT NOT NULL,
+    PRIMARY kEY (ID),
+    FOREIGN KEY (lectureID) REFERENCES public.lecturers (ID),
+    FOREIGN KEY (departmentID) REFERENCES public.departments (ID)
+);
+
 CREATE TABLE public.alerts(
 	ID serial NOT NULL, 
     lectureID integer,
