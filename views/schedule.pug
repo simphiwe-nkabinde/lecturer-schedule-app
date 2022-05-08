@@ -1,23 +1,25 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to Faculties 
-  table 
-    thead 
-        tr
-            th time 
-            th Monday 
-            th Tuesday 
-            th Wednesday 
-            th Thursday 
-            th Friday 
-    tbody             
-        each val in schedule
-            tr  
-                td #{val.time}
-                td #{val.monday}
-                td #{val.tuesday}
-                td #{val.wednesday}
-                td #{val.thursday}
-                td #{val.friday}
+  h1.my-2.text-center Lecture Schedule 
+  div#table-container
+    table.table.table-bordered
+        thead 
+            tr
+                th(scope='col') #
+                th(scope='col') time 
+                th(scope='col') Monday 
+                th(scope='col') Tuesday 
+                th(scope='col') Wednesday 
+                th(scope='col') Thursday 
+                th(scope='col') Friday 
+        tbody             
+            each val in schedule
+                tr  
+                    th(scope='row') #{val.periodid}
+                    td #{val.time}
+                    td #{val.monday}
+                    td #{val.tuesday}
+                    td #{val.wednesday}
+                    td #{val.thursday}
+                    td #{val.friday}

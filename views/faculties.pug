@@ -1,8 +1,7 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to Faculties 
-  ul 
+  h1.my-2.text-center Choose a faculty 
+  div.text-center 
     each val in faculties
-        li #{val.id}, #{val.name}
+      a(href=`/department/${val.id}`, style={width:'12rem'}).shadow-sm.d-block.btn.btn-outline-secondary.my-2.mx-auto #{val.name}
