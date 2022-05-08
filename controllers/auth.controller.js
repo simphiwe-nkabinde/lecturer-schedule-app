@@ -30,8 +30,23 @@ module.exports.login_get = (req, res) => {
  * @param {*} res 
  */
 module.exports.register_post = (req, res) => {
-    const { email, password } = req.body
+    const { name, email, password } = req.body;
     // node-postgres
+    let query = {
+        text: `INSERT INTO students ( name, email, password ) VALUES ($1, $2, $3) RETURNING id, name`,
+        value: [name, email, password]
+    }
+
+    pool.query(query.text, query.value)
+    .then(data => {
+        if (data.id) {
+            return res.redirect('/login')
+        } else { res.status(404).json('error, could not register') }
+    })
+    .catch(err => {
+        console.log(err);
+        return res.status(404).json(error)
+    })
 }
 /**
  * verifies user email and password against DB
@@ -39,8 +54,23 @@ module.exports.register_post = (req, res) => {
  * @param {*} res 
  */
 module.exports.login_post = (req, res) => {
-    const { email, password } = req.query
+    const { email, password } = req.body;
     // node-postgres
+    let query = {
+        text: `SELECT id , name, email FROM students WHERE email = $1 AND password = $2;`,
+        value: [email, password]
+    }
+
+    pool.query(query.text, query.value)
+    .then(data => {
+        if (data.rowCount) {
+            return res.redirect('/faculty')
+        } else { res.status(404).json('user does not exist')}
+    })
+    .catch(err => {
+        console.log(err);
+        return res.status(404).json(error)
+    })
 }
 
 /**
