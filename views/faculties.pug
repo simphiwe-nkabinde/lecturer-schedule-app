@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  h1.my-2.text-center Choose a faculty 
-  div.text-center 
+  h1.my-3.text-center Choose a faculty 
+  div.container-scroll.text-center
     each val in faculties
       a(href=`/department/${val.id}`, style={width:'12rem'}).shadow-sm.d-block.btn.btn-outline-secondary.my-2.mx-auto #{val.name}
