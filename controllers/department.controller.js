@@ -8,7 +8,7 @@ module.exports.department_get = (req, res) => {
     console.log(facultyId);
     //sql query - get faculties: [{faculty_id, name}]
     const query = {
-        text: 'SELECT * FROM departments WHERE facultyID = $1;',
+        text: 'SELECT * FROM departments WHERE faculty_id = $1;',
         value: [facultyId]
     }
 

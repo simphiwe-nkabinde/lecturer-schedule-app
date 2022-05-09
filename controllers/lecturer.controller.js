@@ -6,7 +6,7 @@ module.exports.lecturer_get = (req, res) => {
     const departmentId = req.params.id
     //sql query - get lecturers: [{lecturer_id, name}]
     const query = {
-        text: 'SELECT lecturers.ID, lecturers.name FROM lecturers INNER JOIN lecturer_department ON lecturer_department.lecturerID=lecturers.ID WHERE lecturer_department.DepartmentID = $1',
+        text: 'SELECT lecturers.id, lecturers.name FROM lecturers INNER JOIN lecturer_department ON lecturer_department.lecturer_id=lecturers.id WHERE lecturer_department.Department_id = $1',
         values: [departmentId]
     }
 
