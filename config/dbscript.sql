@@ -1,9 +1,6 @@
 DROP DATABASE IF EXISTS lecturer_schedule_app;
 CREATE DATABASE lecturer_schedule_app;
 
-\c lecturer_schedule_app;
-
-
 DROP TABLE IF EXISTS public.faculties;
 CREATE TABLE public.faculties(
 	id INT NOT NULL, 
@@ -103,17 +100,19 @@ VALUES
 CREATE TABLE public.students(
 	id serial NOT NULL,
     name varchar(100),
-    email varchar(100),
+    email varchar(100) UNIQUE,
     password varchar(50),
+    department_id INT NOT NULL,
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
 	Primary Key(id),
+    FOREIGN KEY (lecturer_id) REFERENCES public.departments (id)
 );
 
 CREATE TABLE public.lecturers(
 	id serial NOT NULL, 
     name varchar(100),
-    email varchar(100),
+    email varchar(100) UNIQUE,
     password varchar(50),
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
@@ -169,7 +168,6 @@ CREATE TABLE public.schedules
     id SERIAL NOT NULL,
     lecturer_id integer,
     period_id integer,
-    department_id integer,
     monday varchar(255),
     tuesday varchar(255),
     wednesday varchar(255),
@@ -192,14 +190,3 @@ VALUES
     (1, 6, 5, '', 'class: dsov23', 'industry visits', 'practical', ''),
     (1, 7, 5, 'consultation', '', 'industry visits', 'practical', ''),
     (1, 8, 5, 'class: dsov23', '', 'industry visits', 'module: fdr195', '');
-
-CREATE UNIQUE INDEX student_unique_lower_email_idx
-    ON public.student (lower(email));
-
-CREATE UNIQUE INDEX lecturers_unique_lower_email_idx
-    ON public.lecturers (lower(email));
-
-
-GRANT SELECT, INSERT, UPDATE, DELETE
-ON ALL TABLES IN SCHEMA public.lecturer_schedule_app 
-TO admin;
