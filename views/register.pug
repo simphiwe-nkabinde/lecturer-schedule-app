@@ -1,5 +1,36 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+   .container.mb-3
+      h2.display-4.text-center Register
+      form#login-form.mt-5.mx-auto
+        .mb-3
+            label.form-label(for='exampleInputName') Name
+            input#exampleInputName.form-control(type='text')
+            #nameAlert.form-text.text-danger name alert here
+        .mb-3
+            label.form-label(for='exampleInputEmail1') Email address
+            input#exampleInputEmail1.form-control(type='email' aria-describedby='emailHelp')
+            #emailAlert.form-text.text-danger email alert here.
+        .mb-3
+            label.form-label(for='exampleInputPassword1') Password
+            input#exampleInputPassword1.form-control(type='password')
+            #pwdAlert.form-text.text-danger passowrd alert here.
+        .mb-3
+            label.form-label(for='exampleInputPassword1') Confirm Password
+            input#exampleInputPassword1.form-control(type='password')
+            #pwdAlert.form-text.text-danger passowrd alert here.
+        label.form-label Faculty
+        select.form-select.form-select-lg.mb-3(aria-label='.form-select-lg example')
+            option(selected='') Select Faculty
+            option(value='1') One
+            option(value='2') Two
+            option(value='3') Three
+        label.form-label Department
+        select.form-select.form-select-lg.mb-3(aria-label='.form-select-lg example')
+            option(selected='') Select Department
+            option(value='1') One
+            option(value='2') Two
+            option(value='3') Three
+
+        button.btn.btn-primary.w-50.me-1 submit  
