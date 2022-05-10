@@ -24,3 +24,6 @@
     padding: 0px;
   }
 }
+#login-form {
+  max-width: 30rem;
+}
