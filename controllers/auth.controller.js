@@ -11,9 +11,8 @@ const cookieOptions = {
     secure: true
 }
 
-// create new jwt token for payload
 const createToken = (payload) => {
-    return jwt.sign(payload, 'w')   // *issue: setting secret to .env.JWT_SECRET == undefined
+    return jwt.sign(payload, 'w')
 }
 
 
@@ -23,20 +22,12 @@ module.exports.register_get = (req, res) => {
 module.exports.login_get = (req, res) => {
     res.render('login', { title: 'Login page' })
 }
-
-/**
- * saves new user email and password into DB
- * @param {*} req { query.email, query.password }
- * @param {*} res 
- */
 module.exports.register_post = (req, res) => {
-    const { name, email, password } = req.body;
-    // node-postgres
+    const { name, email, password, faculty_id } = req.body;
     let query = {
-        text: `INSERT INTO students ( name, email, password ) VALUES ($1, $2, $3) RETURNING id, name`,
-        value: [name, email, password]
+        text: `INSERT INTO students ( name, email, password , faculty_id) VALUES ($1, $2, $3, $4) RETURNING id, name`,
+        value: [name, email, password, faculty_id]
     }
-
     pool.query(query.text, query.value)
     .then(data => {
         if (data.id) {
@@ -48,22 +39,54 @@ module.exports.register_post = (req, res) => {
         return res.status(404).json(error)
     })
 }
-/**
- * verifies user email and password against DB
- * @param {*} req { query.email, query.password , cookie}
- * @param {*} res 
- */
-module.exports.login_post = (req, res) => {
+
+module.exports.loginStudent_post = (req, res) => {
     const { email, password } = req.body;
     // node-postgres
     let query = {
-        text: `SELECT id , name, email FROM students WHERE email = $1 AND password = $2;`,
+        text: `SELECT id , name, email, faculty_id FROM students WHERE email = $1 AND password = $2;`,
         value: [email, password]
     }
 
     pool.query(query.text, query.value)
     .then(data => {
         if (data.rowCount) {
+            payload = {
+                id: data.id,
+                name: data.name,
+                email: data.email,
+                faculty_id: data.faculty_id,
+                userType: 'student'
+            }
+            let token = createToken(payload)
+            res.cookie('jwt', token, cookieOptions) 
+            return res.redirect('/faculty')
+        } else { res.status(404).json('user does not exist')}
+    })
+    .catch(err => {
+        console.log(err);
+        return res.status(404).json(error)
+    })
+}
+module.exports.loginLecturer_post = (req, res) => {
+    const { email, password } = req.body;
+    // node-postgres
+    let query = {
+        text: `SELECT id , name, email FROM lecturers WHERE email = $1 AND password = $2;`,
+        value: [email, password]
+    }
+
+    pool.query(query.text, query.value)
+    .then(data => {
+        if (data.rowCount) {
+            payload = {
+                id: data.id,
+                name: data.name,
+                email: data.email,
+                userType: 'lecturer'
+            }
+            let token = createToken(payload)
+            res.cookie('jwt', token, cookieOptions) 
             return res.redirect('/faculty')
         } else { res.status(404).json('user does not exist')}
     })
