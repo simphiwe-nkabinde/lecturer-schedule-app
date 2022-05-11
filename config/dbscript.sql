@@ -177,16 +177,15 @@ CREATE TABLE public.schedules
     updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
     FOREIGN KEY (lecturer_id) REFERENCES public.lecturers (id),
-    FOREIGN KEY (department_id) REFERENCES public.departments (id),
     FOREIGN KEY (period_id) REFERENCES public.periods (id)
 );
-INSERT INTO public.schedules (lecturer_id, period_id, department_id, monday, tuesday, wednesday, thursday, friday)
+INSERT INTO public.schedules (lecturer_id, period_id, monday, tuesday, wednesday, thursday, friday)
 VALUES
-    (1, 1, 5, 'consultation', 'class: dsov23', 'industry visits', '', 'module: fdr195'),
-    (1, 2, 5, 'consultation', '', 'industry visits', 'practical', ''),
-    (1, 3, 5, '', 'module: fdr195', 'industry visits', '', ''),
-    (1, 4, 5, 'class: dsov23', 'module: fdr195', 'industry visits', '', ''),
-    (1, 5, 5, 'consultation', '', 'industry visits', 'practical', 'class: dsov23'),
-    (1, 6, 5, '', 'class: dsov23', 'industry visits', 'practical', ''),
-    (1, 7, 5, 'consultation', '', 'industry visits', 'practical', ''),
-    (1, 8, 5, 'class: dsov23', '', 'industry visits', 'module: fdr195', '');
+    (1, 1, 'consultation', 'class: dsov23', 'industry visits', '', 'module: fdr195'),
+    (1, 2, 'consultation', '', 'industry visits', 'practical', ''),
+    (1, 3, '', 'module: fdr195', 'industry visits', '', ''),
+    (1, 4, 'class: dsov23', 'module: fdr195', 'industry visits', '', ''),
+    (1, 5, 'consultation', '', 'industry visits', 'practical', 'class: dsov23'),
+    (1, 6, '', 'class: dsov23', 'industry visits', 'practical', ''),
+    (1, 7, 'consultation', '', 'industry visits', 'practical', ''),
+    (1, 8, 'class: dsov23', '', 'industry visits', 'module: fdr195', '');
