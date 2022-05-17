@@ -3,9 +3,9 @@ CREATE DATABASE lecturer_schedule_app;
 
 DROP TABLE IF EXISTS public.faculties;
 CREATE TABLE public.faculties(
-	id INT NOT NULL, 
+	faculty_id INT NOT NULL, 
 	name varchar(100),
-    Primary Key(id)
+    Primary Key(faculty_id)
 );
 INSERT INTO public.faculties
 VALUES
@@ -19,11 +19,11 @@ VALUES
 
 DROP TABLE IF EXISTS public.departments;
 CREATE TABLE public.departments(
-	id serial NOT NULL,
+	department_id serial NOT NULL,
     faculty_id INT,
 	name varchar(100),
-    Primary Key(id),
-    FOREIGN KEY (faculty_id) REFERENCES public.faculties (id)
+    Primary Key(department_id),
+    FOREIGN KEY (faculty_id) REFERENCES public.faculties (faculty_id)
 );
 INSERT INTO public.departments (faculty_id, name)
 VALUES
@@ -82,9 +82,9 @@ VALUES
 
 DROP TABLE IF EXISTS public.periods;
 CREATE TABLE public.periods(
-   id INT NOT NULL,
+   period_id INT NOT NULL,
    time varchar(50),
-   primary Key(id)
+   primary Key(period_id)
 );
 INSERT INTO public.periods 
 VALUES
@@ -98,25 +98,25 @@ VALUES
     (8, '15:00 - 16:00');
 
 CREATE TABLE public.students(
-	id serial NOT NULL,
+	student_id serial NOT NULL,
     name varchar(100),
     email varchar(100) UNIQUE,
     password varchar(50),
     department_id INT NOT NULL,
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
-	Primary Key(id),
-    FOREIGN KEY (lecturer_id) REFERENCES public.departments (id)
+	Primary Key(student_id),
+    FOREIGN KEY (lecturer_id) REFERENCES public.departments (department_id)
 );
 
 CREATE TABLE public.lecturers(
-	id serial NOT NULL, 
+	lecturer_id serial NOT NULL, 
     name varchar(100),
     email varchar(100) UNIQUE,
     password varchar(50),
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
-	Primary Key(id)
+	Primary Key(lecturer_id)
 );
 INSERT INTO public.lecturers (name, email, password)
 VALUES
@@ -127,12 +127,12 @@ VALUES
 
 DROP TABLE IF EXISTS public.lecturer_department;
 CREATE TABLE public.lecturer_department(
-    id SERIAL NOT NULL,
+    department_id SERIAL NOT NULL,
     lecturer_id INT NOT NULL,
     department_id INT NOT NULL,
-    PRIMARY kEY (id),
-    FOREIGN KEY (lecturer_id) REFERENCES public.lecturers (id),
-    FOREIGN KEY (department_id) REFERENCES public.departments (id)
+    PRIMARY kEY (department_id),
+    FOREIGN KEY (lecturer_id) REFERENCES public.lecturers (lecturer_id),
+    FOREIGN KEY (department_id) REFERENCES public.departments (department_id)
 );
 INSERT INTO public.lecturer_department (lecturer_id, department_id)
 VALUES
@@ -154,18 +154,18 @@ VALUES
     (4, 33);
 
 CREATE TABLE public.alerts(
-	id serial NOT NULL, 
+	alert_id serial NOT NULL, 
     lecturer_id integer,
 	message varchar(255),
 	created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
-	Primary Key(id),
-    FOREIGN KEY (lecturer_id) REFERENCES public.lecturers (id)
+	Primary Key(alert_id),
+    FOREIGN KEY (lecturer_id) REFERENCES public.lecturers (lecturer_id)
 );
 
 DROP TABLE IF EXISTS public.schedules;
 CREATE TABLE public.schedules
 (
-    id SERIAL NOT NULL,
+    schedule_id SERIAL NOT NULL,
     lecturer_id integer,
     period_id integer,
     monday varchar(255),
@@ -175,9 +175,9 @@ CREATE TABLE public.schedules
     friday varchar(255),
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (id),
-    FOREIGN KEY (lecturer_id) REFERENCES public.lecturers (id),
-    FOREIGN KEY (period_id) REFERENCES public.periods (id)
+    PRIMARY KEY (schedule_id),
+    FOREIGN KEY (lecturer_id) REFERENCES public.lecturers (lecturer_id),
+    FOREIGN KEY (period_id) REFERENCES public.periods (period_id)
 );
 INSERT INTO public.schedules (lecturer_id, period_id, monday, tuesday, wednesday, thursday, friday)
 VALUES

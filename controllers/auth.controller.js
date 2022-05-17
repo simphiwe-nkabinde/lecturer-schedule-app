@@ -25,7 +25,7 @@ module.exports.login_get = (req, res) => {
 module.exports.register_post = (req, res) => {
     const { name, email, password, faculty_id } = req.body;
     let query = {
-        text: `INSERT INTO students ( name, email, password , faculty_id) VALUES ($1, $2, $3, $4) RETURNING id, name`,
+        text: `INSERT INTO students ( name, email, password , faculty_id) VALUES ($1, $2, $3, $4) RETURNING student_id as id, name`,
         value: [name, email, password, faculty_id]
     }
     pool.query(query.text, query.value)
@@ -44,7 +44,7 @@ module.exports.loginStudent_post = (req, res) => {
     const { email, password } = req.body;
     // node-postgres
     let query = {
-        text: `SELECT id , name, email, faculty_id FROM students WHERE email = $1 AND password = $2;`,
+        text: `SELECT student_id as id , name, email, faculty_id FROM students WHERE email = $1 AND password = $2;`,
         value: [email, password]
     }
 
@@ -72,7 +72,7 @@ module.exports.loginLecturer_post = (req, res) => {
     const { email, password } = req.body;
     // node-postgres
     let query = {
-        text: `SELECT id , name, email FROM lecturers WHERE email = $1 AND password = $2;`,
+        text: `SELECT lecturer_id as id , name, email FROM lecturers WHERE email = $1 AND password = $2;`,
         value: [email, password]
     }
 
