@@ -2,35 +2,35 @@ extends layout
 
 block content
    .container.mb-3
-      h2.display-4.text-center Register
-      form#login-form.mt-5.mx-auto
+      h2.display-4.text-center.mt-4.slideFromTop Register
+      form#login-form.mt-4.mx-auto.slideFromLeft
         .mb-3
-            label.form-label(for='exampleInputName') Name
-            input#exampleInputName.form-control(type='text')
-            #nameAlert.form-text.text-danger name alert here
+            label.form-label.text-shadow-sm(for='exampleInputName') Name
+            input#exampleInputName.form-control.shadow-sm(type='text')
+            #nameAlert.form-text.text-danger
         .mb-3
-            label.form-label(for='exampleInputEmail1') Email address
-            input#exampleInputEmail1.form-control(type='email' aria-describedby='emailHelp')
-            #emailAlert.form-text.text-danger email alert here.
+            label.form-label.text-shadow-sm(for='exampleInputEmail1') Email address
+            input#exampleInputEmail1.form-control.shadow-sm(type='email' aria-describedby='emailHelp')
+            #emailAlert.form-text.text-danger
         .mb-3
-            label.form-label(for='exampleInputPassword1') Password
-            input#exampleInputPassword1.form-control(type='password')
-            #pwdAlert.form-text.text-danger passowrd alert here.
+            label.form-label.text-shadow-sm(for='exampleInputPassword1') Password
+            input#exampleInputPassword1.form-control.shadow-sm(type='password')
+            #pwdAlert.form-text.text-danger
         .mb-3
-            label.form-label(for='exampleInputPassword1') Confirm Password
-            input#exampleInputPassword1.form-control(type='password')
-            #pwdAlert.form-text.text-danger passowrd alert here.
-        label.form-label Faculty
+            label.form-label.text-shadow-sm(for='exampleInputPassword1') Confirm Password
+            input#exampleInputPassword1.form-control.shadow-sm(type='password')
+            #pwdAlert.form-text.text-danger
+        label.form-label.text-shadow-sm Faculty
         select.form-select.form-select-lg.mb-3(aria-label='.form-select-lg example')
             option(selected='') Select Faculty
             option(value='1') One
             option(value='2') Two
             option(value='3') Three
-        label.form-label Department
+        label.form-label.text-shadow-sm Department
         select.form-select.form-select-lg.mb-3(aria-label='.form-select-lg example')
             option(selected='') Select Department
             option(value='1') One
             option(value='2') Two
             option(value='3') Three
 
-        button.btn.btn-primary.w-50.me-1 submit  
+        button.btn.btn-primary.w-50.me-1 register  

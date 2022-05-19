@@ -162,7 +162,7 @@ CREATE TABLE public.alerts(
     FOREIGN KEY (lecturer_id) REFERENCES public.lecturers (lecturer_id)
 );
 
-DROP TABLE IF EXISTS public.schedules;
+DROP TABLE IF EXISTS public.nps;
 CREATE TABLE public.schedules
 (
     schedule_id SERIAL NOT NULL,

@@ -1,5 +1,11 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    #landing.px-4.py-5.text-light.text-center
+      p.slideFromLeft Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quas dicta amet ab facilis eaque esse?
+      p.slideFromRight Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugiat quas laudantium vel ut quidem dolorem hic soluta maxime. Et, praesentium.
+      .my-4.slideFromBottom
+        a.btn.btn-primary(href="auth/register") register as student
+      .my-4.slideFromBottom
+        p.small already registered?
+        a.btn.btn-success(href="auth/login") Login as student
