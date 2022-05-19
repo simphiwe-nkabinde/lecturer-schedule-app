@@ -1,17 +1,17 @@
 extends layout
 
 block content
-   .container
-      h2.display-4.text-center login
-      form#login-form.mt-5.mx-auto
+   .px-4.bg-image.text-light
+      h2.display-4.text-center.pt-4.slideFromTop login
+      form#login-form.mt-4.mx-auto.slideFromLeft
          .mb-3
-            label.form-label(for='exampleInputEmail1') Email address
-            input#exampleInputEmail1.form-control(type='email' aria-describedby='emailHelp')
-            #emailAlert.form-text.text-danger email alert here.
+            label.form-label.text-shadow-sm(for='exampleInputEmail1') Email address
+            input#exampleInputEmail1.form-control.shadow-sm(type='email' aria-describedby='emailHelp')
+            #emailAlert.form-text.text-danger
          .mb-3
-            label.form-label(for='exampleInputPassword1') Password
-            input#exampleInputPassword1.form-control(type='password')
-            #pwdAlert.form-text.text-danger passowrd alert here.
+            label.form-label.text-shadow-sm(for='exampleInputPassword1') Password
+            input#exampleInputPassword1.form-control.shadow-sm(type='password')
+            #pwdAlert.form-text.text-danger
          .mb-3.form-check
             input#exampleCheck1.form-check-input(type='checkbox')
             label.form-check-label(for='exampleCheck1') remember me

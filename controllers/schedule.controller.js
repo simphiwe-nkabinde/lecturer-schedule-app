@@ -9,7 +9,7 @@ module.exports.schedule_get = (req, res) => {
     //sql query - get lecturers: [{lecturer_id, name}]
 
     const query = {
-        text: 'SELECT schedules.*, periods.time FROM schedules INNER JOIN periods ON schedules.period_id = periods.id WHERE lecturer_id = $1 AND department_id = $2;',
+        text: 'SELECT schedules.*, periods.time FROM schedules INNER JOIN periods ON schedules.period_id = periods.period_id WHERE lecturer_id = $1 AND department_id = $2;',
         values: [lecturerId, departmentId]
     }
 

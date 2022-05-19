@@ -8,9 +8,12 @@ html
     link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css')
     link(href='/stylesheets/style.css', rel='stylesheet')
   body
-    header.text-center.p-2.bg-secondary.shadow.mb-2
-      p.fs-1.text-light Lecturer's Schedule
-      p.fs-4 Hi James Mlomo
+    header.text-center.p-2.bg-purple.shadow.mb-0.border-bottom.border-danger
+      p.fs-1.text-light.fadeIn.mb-0
+        a.text-decoration-none.text-light(href="/")
+          i.bi.bi-calendar4-week
+          span.mx-2 Lecturer's Schedule
+      .small.fadeIn know you lecturer's timetable
     
-    div.container
+    div
       block content

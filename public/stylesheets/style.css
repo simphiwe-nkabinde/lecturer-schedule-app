@@ -27,3 +27,86 @@
 #login-form {
   max-width: 30rem;
 }
+.text-shadow-sm {
+  text-shadow: 0 0.1rem 0.3rem rgba(0,0,0,.15)!important;
+}
+/* COLORS */
+.bg-purple {
+  background-color: #3f51b5;
+}
+/* ANIMATIONS */
+.slideFromLeft {
+  animation: slideFromLeft 1s forwards;
+}
+@keyframes slideFromLeft {
+  0% {
+    opacity: 0.5;
+    transform: translateX(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+.slideFromRight {
+  animation: slideFromRight 1s forwards;
+}
+@keyframes slideFromRight {
+  0% {
+    opacity: 0.5;
+    transform: translateX(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+.slideFromTop {
+  animation: slideFromTop 1s forwards;
+}
+@keyframes slideFromTop {
+  0% {
+    opacity: 0.5;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+.slideFromBottom {
+  animation: slideFromBottom 1s forwards;
+}
+@keyframes slideFromBottom {
+  0% {
+    opacity: 0.5;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+.fadeIn {
+  animation: fadeIn 1s forwards;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* LANDING */
+.bg-image {
+  background: linear-gradient(0deg, rgb(0 0 0 / 47%), #000000a1), url(/images/students2.jpeg) no-repeat center;
+  background-size: cover;
+  height: 88vh;
+}
+#landing {
+  background: linear-gradient(0deg, rgb(0 0 0 / 47%), #000000a1), url(/images/students.jpeg) no-repeat center;
+  height: 88vh;
+  background-size: cover;
+}
