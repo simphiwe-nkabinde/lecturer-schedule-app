@@ -1,3 +1,0 @@
-function previousPage() {
-    history.back()
-}
