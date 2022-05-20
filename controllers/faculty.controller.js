@@ -6,7 +6,7 @@ const pool = require('../db_connect')
 module.exports.faculty_get = (req, res) => {
     //sql query - get faculties: [{faculty_id, name}]
     const query = {
-        text: 'SELECT * FROM faculties'
+        text: 'SELECT faculty_id as id, name FROM faculties'
     }
 
     pool.query(query.text)
