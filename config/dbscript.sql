@@ -1,6 +1,7 @@
 DROP DATABASE IF EXISTS lecturer_schedule_app;
 CREATE DATABASE lecturer_schedule_app;
 
+DROP TABLE IF EXISTS public.faculties CASCADE;
 CREATE TABLE public.faculties(
 	faculty_id INT NOT NULL, 
 	name varchar(100),
@@ -16,7 +17,7 @@ VALUES
     (6, 'management sciences'),
     (7, 'science');
 
-DROP TABLE IF EXISTS public.departments;
+DROP TABLE IF EXISTS public.departments CASCADE;
 CREATE TABLE public.departments(
 	department_id serial NOT NULL,
     faculty_id INT,
@@ -79,7 +80,7 @@ VALUES
     (7, 'Physics'),
     (7, 'Sport, Rehabilitation and Dental Sciences');
 
-DROP TABLE IF EXISTS public.periods;
+DROP TABLE IF EXISTS public.periods CASCADE;
 CREATE TABLE public.periods(
    period_id INT NOT NULL,
    time varchar(50),
@@ -96,6 +97,7 @@ VALUES
     (7, '14:00 - 15:00'),
     (8, '15:00 - 16:00');
 
+DROP TABLE IF EXISTS public.students CASCADE;
 CREATE TABLE public.students(
 	student_id serial NOT NULL,
     name varchar(100),
@@ -105,9 +107,10 @@ CREATE TABLE public.students(
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
 	Primary Key(student_id),
-    FOREIGN KEY (lecturer_id) REFERENCES public.departments (department_id)
+    FOREIGN KEY (department_id) REFERENCES public.departments (department_id)
 );
 
+DROP TABLE IF EXISTS public.lecturers CASCADE;
 CREATE TABLE public.lecturers(
 	lecturer_id serial NOT NULL, 
     name varchar(100),
@@ -124,12 +127,12 @@ VALUES
     ('karabo', 'karabo@email.com', 'karabo123'),
     ('tina', 'tina@email.com', 'tina123');
 
-DROP TABLE IF EXISTS public.lecturer_department;
+DROP TABLE IF EXISTS public.lecturer_department CASCADE;
 CREATE TABLE public.lecturer_department(
-    department_id SERIAL NOT NULL,
+    lecturer_department_id SERIAL NOT NULL,
     lecturer_id INT NOT NULL,
     department_id INT NOT NULL,
-    PRIMARY kEY (department_id),
+    PRIMARY kEY (lecturer_department_id),
     FOREIGN KEY (lecturer_id) REFERENCES public.lecturers (lecturer_id),
     FOREIGN KEY (department_id) REFERENCES public.departments (department_id)
 );
@@ -152,6 +155,7 @@ VALUES
     (4, 35),
     (4, 33);
 
+DROP TABLE IF EXISTS public.alerts CASCADE;
 CREATE TABLE public.alerts(
 	alert_id serial NOT NULL, 
     lecturer_id integer,
@@ -161,7 +165,7 @@ CREATE TABLE public.alerts(
     FOREIGN KEY (lecturer_id) REFERENCES public.lecturers (lecturer_id)
 );
 
-DROP TABLE IF EXISTS public.nps;
+DROP TABLE IF EXISTS public.schedules CASCADE;
 CREATE TABLE public.schedules
 (
     schedule_id SERIAL NOT NULL,
