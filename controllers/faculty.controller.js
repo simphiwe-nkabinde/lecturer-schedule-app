@@ -12,7 +12,7 @@ module.exports.faculty_get = (req, res) => {
     pool.query(query.text)
     .then(data => {
         if(data.rowCount) {
-            res.render('faculties', { faculties: data.rows})
+            res.json(data.rows)
         } else { return res.status(404).json('faculties not found')}
     })
     .catch(err => {

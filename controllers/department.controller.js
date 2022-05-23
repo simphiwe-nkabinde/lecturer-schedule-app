@@ -15,7 +15,7 @@ module.exports.department_get = (req, res) => {
     pool.query(query.text, query.value)
     .then(data => {
         if(data.rowCount) {
-            res.render('departments', { departments: data.rows})
+            res.json(data.rows)
         } else { return res.status(404).json('departments not found')}
     })
     .catch(err => {

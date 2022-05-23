@@ -17,26 +17,40 @@ const createToken = (payload) => {
 
 
 module.exports.register_get = (req, res) => {
-    res.render('register', { title: 'Register page' });
+    //sql query - get faculties: [{faculty_id, name}]
+    const query = {
+        text: 'SELECT faculty_id as id, name FROM faculties'
+    }
+
+    pool.query(query.text)
+    .then(data => {
+        if(data.rowCount) {
+            res.render('register', { title: 'Register page', faculties: data.rows });
+        } else { return res.status(404).json('faculties not found')}
+    })
+    .catch(err => {
+        console.log(err);
+    })
 }
 module.exports.login_get = (req, res) => {
     res.render('login', { title: 'Login page' })
 }
 module.exports.register_post = (req, res) => {
-    const { name, email, password, faculty_id } = req.body;
+    const { name, email, password, department_id } = req.body;
     let query = {
-        text: `INSERT INTO students ( name, email, password , faculty_id) VALUES ($1, $2, $3, $4) RETURNING student_id as id, name`,
-        value: [name, email, password, faculty_id]
+        text: `INSERT INTO students ( name, email, password , department_id) VALUES ($1, $2, $3, $4) RETURNING student_id as id, name, department_id`,
+        value: [name, email, password, department_id]
     }
     pool.query(query.text, query.value)
     .then(data => {
-        if (data.id) {
-            return res.redirect('/login')
+        if (data.rows) {
+            console.log(data.rows);
+            return res.json(`auth/login`)
         } else { res.status(404).json('error, could not register') }
     })
     .catch(err => {
         console.log(err);
-        return res.status(404).json(error)
+        return res.status(404).json(err)
     })
 }
 

@@ -1,3 +1,52 @@
 function previousPage() {
     history.back()
 }
+
+function getFacultyDepartments(event) {
+    const faculty_id = event.target.value
+    const departmentSelectElement = document.getElementById('department-select')
+    let HtmlContent = ''
+    fetch(`http://localhost:3000/department/${faculty_id}`)
+    .then(res => res.json())
+    .then(res => {
+        res.forEach(department => {
+            HtmlContent += `<option value=${department.id}> ${department.name}</option>`
+        });
+        departmentSelectElement.innerHTML = HtmlContent
+    })
+    .catch(err => {
+        console.log(err);
+        HtmlContent = '<option> Error fetching departments</option>'
+        departmentSelectElement.innerHTML = HtmlContent
+    })
+}
+
+function register_onSubmit(event) {
+    event.preventDefault()
+    const name = document.getElementById('register-name').value;
+    const email = document.getElementById('register-email').value;
+    const password = document.getElementById('register-password').value;
+    const passwordConfirm = document.getElementById('register-password-confirm').value;
+    const department_id = document.getElementById('department-select').value;
+
+    if(password != passwordConfirm || !department_id) {
+        //alert message
+        return
+    }
+
+    fetch('http://localhost:3000/auth/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({name, email, password, department_id})
+    })
+    .then(res => res.json())
+    .then(res => {
+        console.log(res);
+        window.location.href = '/' + res
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}
