@@ -1,7 +1,11 @@
 extends layout
 
 block content
-   .px-4.bg-image.mb-3.text-light
+   .px-4.py-3.bg-image.text-light
+      #alert-box.border.border-dark.p-1.rounded.alert-success.fadeIn
+        p#alert-content.m-0.p-1
+        i#alert-close.bi.bi-x-lg(onclick="alertClose()")
+
       h2.display-4.text-center.pt-4.slideFromTop Register
       form#login-form.mt-4.mx-auto.slideFromLeft
         .mb-3

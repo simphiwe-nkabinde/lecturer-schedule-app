@@ -21,15 +21,14 @@ function getFacultyDepartments(event) {
     })
 }
 
+// Registration Form
 function registerFormValidation(registerFormObj) {
-    
     for (const [key, value] of Object.entries(registerFormObj)) {
         if (!value) {
             document.getElementById(`${key}Alert`).innerText = `this field is invalid`;
         }
     }
 }
-
 function register_onSubmit(event) {
     event.preventDefault()
     const name = document.getElementById('register-name').value;
@@ -53,9 +52,20 @@ function register_onSubmit(event) {
     .then(res => res.json())
     .then(res => {
         console.log(res);
-        window.location.href = '/' + res
+        showAlert("You have been successfully registered. Login to access lecturers' Schedule")
+        setTimeout(() => {window.location.href = `/auth/login`}, 4000)
     })
     .catch(err => {
         console.log(err);
     })
+}
+
+// ALERT
+function showAlert(content) {
+    document.getElementById('alert-content').innerText = content;
+    document.getElementById('alert-box').style.display = 'flex';
+}
+function alertClose() {
+    document.getElementById('alert-box').style.display = 'none';
+    document.getElementById('alert-content').innerText = '';
 }

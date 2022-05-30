@@ -110,3 +110,13 @@
   height: 88vh;
   background-size: cover;
 }
+
+/* ALERT */
+#alert-box {
+  display: none;
+  /* display: flex; */
+  justify-content: space-between;
+}
+#alert-box i {
+  cursor: pointer;
+}
