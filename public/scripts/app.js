@@ -21,16 +21,25 @@ function getFacultyDepartments(event) {
     })
 }
 
+function registerFormValidation(registerFormObj) {
+    
+    for (const [key, value] of Object.entries(registerFormObj)) {
+        if (!value) {
+            document.getElementById(`${key}Alert`).innerText = `this field is invalid`;
+        }
+    }
+}
+
 function register_onSubmit(event) {
     event.preventDefault()
     const name = document.getElementById('register-name').value;
     const email = document.getElementById('register-email').value;
     const password = document.getElementById('register-password').value;
     const passwordConfirm = document.getElementById('register-password-confirm').value;
-    const department_id = document.getElementById('department-select').value;
+    const departmentId = document.getElementById('department-select').value;
 
-    if(password != passwordConfirm || !department_id) {
-        //alert message
+    if(!name || !email || !password || password != passwordConfirm || !departmentId) {
+        registerFormValidation({name, email, password, passwordConfirm, departmentId})
         return
     }
 
@@ -39,7 +48,7 @@ function register_onSubmit(event) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({name, email, password, department_id})
+        body: JSON.stringify({name, email, password, departmentId})
     })
     .then(res => res.json())
     .then(res => {
