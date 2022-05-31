@@ -13,8 +13,7 @@ router.post('/register', authController.register_post)
 router.get('/login', authController.login_get)
 
 //registered user login
-router.post('/login', authController.loginStudent_post)
-router.post('/login', authController.loginLecturer_post)
+router.post('/login', authController.login_post)
 
 //logout user
 router.get('/logout', authController.logout)

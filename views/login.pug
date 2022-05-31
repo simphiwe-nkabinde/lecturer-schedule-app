@@ -6,16 +6,25 @@ block content
       form#login-form.mt-4.mx-auto.slideFromLeft
          .mb-3
             label.form-label.text-shadow-sm(for='exampleInputEmail1') Email address
-            input#exampleInputEmail1.form-control.shadow-sm(type='email' aria-describedby='emailHelp')
+            input#login-email.form-control.shadow-sm(type='email' aria-describedby='emailHelp' required)
             #emailAlert.form-text.text-danger
          .mb-3
             label.form-label.text-shadow-sm(for='exampleInputPassword1') Password
-            input#exampleInputPassword1.form-control.shadow-sm(type='password')
-            #pwdAlert.form-text.text-danger
-         .mb-3.form-check
-            input#exampleCheck1.form-check-input(type='checkbox')
-            label.form-check-label(for='exampleCheck1') remember me
-         .text-center.fs-4.mb-3 login as:
-         .d-flex.justify-content-between
-            button.btn.btn-primary.w-50.me-1 Student  
-            button.btn.btn-secondary.w-50.ms-1 lecturure
+            input#login-password.form-control.shadow-sm(type='password' required)
+            #passwordAlert.form-text.text-danger
+         //- .mb-3.form-check
+         //-    input#login-remember.form-check-input(type='checkbox')
+         //-    label.form-check-label(for='exampleCheck1') remember me
+
+         .d-flex.justify-content-evenly
+            .form-check
+               input#role1.form-check-input(type='radio' name='role' value='student' checked='')
+               label.form-check-label(for='role')| Student
+            .form-check
+               input#role2.form-check-input(type='radio' name='role' value='lecturer')
+               label.form-check-label(for='role')| Lecturer
+
+         div.text-center.mt-5
+            button.btn.btn-primary.w-50(onclick="login_post(event)") Login 
+            
+                  

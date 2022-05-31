@@ -21,14 +21,14 @@ function getFacultyDepartments(event) {
     })
 }
 
-// Registration Form
-function registerFormValidation(registerFormObj) {
+function formValidationAlert(registerFormObj) {
     for (const [key, value] of Object.entries(registerFormObj)) {
         if (!value) {
             document.getElementById(`${key}Alert`).innerText = `this field is invalid`;
         }
     }
 }
+// Registration Form
 function register_onSubmit(event) {
     event.preventDefault()
     const name = document.getElementById('register-name').value;
@@ -38,7 +38,7 @@ function register_onSubmit(event) {
     const departmentId = document.getElementById('department-select').value;
 
     if(!name || !email || !password || password != passwordConfirm || !departmentId) {
-        registerFormValidation({name, email, password, passwordConfirm, departmentId})
+        formValidationAlert({name, email, password, passwordConfirm, departmentId})
         return
     }
 
@@ -54,6 +54,44 @@ function register_onSubmit(event) {
         console.log(res);
         showAlert("You have been successfully registered. Login to access lecturers' Schedule")
         setTimeout(() => {window.location.href = `/auth/login`}, 4000)
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}
+
+function login_post(event) {
+    event.preventDefault()
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+    let role = ''
+
+    if (!password || !email) {
+        formValidationAlert({password, email})
+        return
+    }
+    // Role
+    let studentRadio = document.getElementsByName('role')[0];
+    let lecturerRadio = document.getElementsByName('role')[1];
+        
+    for(i = 0; i < 2; i++) {
+        if(studentRadio.checked)
+            role = studentRadio.value;
+        else
+            role = lecturerRadio.value;
+    }
+    // Request
+    fetch('http://localhost:3000/auth/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({email, password, role})
+    })
+    .then(res => res.json())
+    .then(res => {
+        console.log(res);
+        window.location.href = `${res.route}`;
     })
     .catch(err => {
         console.log(err);
