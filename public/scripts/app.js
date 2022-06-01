@@ -91,7 +91,8 @@ function login_post(event) {
     .then(res => res.json())
     .then(res => {
         console.log(res);
-        window.location.href = `${res.route}`;
+        if (res.id)
+            window.location.href = `/lecturer`;
     })
     .catch(err => {
         console.log(err);
