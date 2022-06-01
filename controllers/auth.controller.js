@@ -55,7 +55,7 @@ module.exports.register_post = (req, res) => {
         console.log(data);
         if (data.rows) {
             console.log(data.rows);
-            return res.json(data.rows)
+            return res.json(data.rows[0])
         } else { res.status(404).json('error, could not register') }
     })
     .catch(err => {

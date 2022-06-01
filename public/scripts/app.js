@@ -66,7 +66,7 @@ function register_onSubmit(event) {
         }
         
     }
-    console.log({name, email, password, role, departmentId});
+    
     fetch('http://lecturer-schedule.herokuapp.com/auth/register', {
         method: 'POST',
         headers: {
@@ -74,9 +74,8 @@ function register_onSubmit(event) {
         },
         body: JSON.stringify(studentRadio.checked ? {name, email, password, role, departmentId} : {name, email, password, role})
     })
-    .then(res => {console.log(res); return res.json()})
+    .then(res => res.json())
     .then(res => {
-        console.log(res);
         if (res.id) {
             showAlert("You have been successfully registered. Login to access lecturers' Schedules")
             setTimeout(() => {window.location.href = `/auth/login`}, 3000)
