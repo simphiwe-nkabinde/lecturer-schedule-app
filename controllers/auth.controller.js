@@ -36,7 +36,7 @@ module.exports.login_get = (req, res) => {
     res.render('login', { title: 'Login page' })
 }
 module.exports.register_post = (req, res) => {
-    const { name, email, password, departmentId } = req.body;
+    const { name, email, password, role, departmentId } = req.body;
     let query = {
         text: '',
         value: [name, email, password]
