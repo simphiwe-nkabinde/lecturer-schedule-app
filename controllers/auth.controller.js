@@ -79,7 +79,7 @@ module.exports.login_post = (req, res) => {
             console.log(payload);
             let token = createToken(payload)
             // res.cookie('jwt', token, cookieOptions) 
-            if ( role == 'student') return res.status(200).json({route:`/lecturer/${payload.departmentId}`, payload})
+            if ( role == 'student') return res.status(200).json(payload)
             else return res.status(200).json(payload)
 
         } else { res.status(404).json('user does not exist')}
