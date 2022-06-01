@@ -13,9 +13,7 @@ module.exports.schedule_get = (req, res) => {
 
     pool.query(query.text, query.values)
     .then(data => {
-        if(data.rowCount) {
-            res.render('schedule', { schedule: data.rows });
-        } else {res.status(404).json('error, schedule not found')}
+        res.render('schedule', { schedule: data.rows });
     })
     .catch(err => {
         console.log(err);
@@ -32,9 +30,7 @@ module.exports.schedule_edit_get = (req, res) => {
 
     pool.query(query.text, query.values)
     .then(data => {
-        if(data.rowCount) {
-            res.render('schedule_edit', { schedule: data.rows });
-        } else {res.status(404).json('error, schedule not found')}
+        res.render('schedule_edit', { schedule: data.rows , lecturer_id: lecturerId});
     })
     .catch(err => {
         console.log(err);
@@ -43,8 +39,36 @@ module.exports.schedule_edit_get = (req, res) => {
 
 //create new schedule
 module.exports.schedule_create = (req, res) => {
-    //res.body { lecturerId, departmentId }
+    const lecturer_id = req.params.lecturerId
     //sql query - create 8 rows in schedules with res values
+    let query = {
+        text: 'INSERT INTO schedules (lecturer_id, period_id) VALUES($9, $1), ($9, $2), ($9, $3), ($9, $4), ($9, $5), ($9, $6), ($9, $7), ($9, $8);',
+        values: [1, 2, 3, 4, 5, 6, 7, 8, lecturer_id]
+    }
+    pool.query(query.text, query.values)
+    .then(data => {
+        res.json(lecturer_id);
+    })
+    .catch(err => {
+        console.log(err);
+    })
+    //reload page after successfule query
+}
+//delete schedule
+module.exports.schedule_delete = (req, res) => {
+    const lecturer_id = req.params.lecturerId
+    //sql query - create 8 rows in schedules with res values
+    let query = {
+        text: 'DELETE FROM schedules WHERE lecturer_id = $1;',
+        values: [lecturer_id]
+    }
+    pool.query(query.text, query.values)
+    .then(data => {
+        res.json(lecturer_id);
+    })
+    .catch(err => {
+        console.log(err);
+    })
     //reload page after successfule query
 }
 

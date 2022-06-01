@@ -117,9 +117,11 @@ function login_post(event) {
     .then(res => res.json())
     .then(res => {
         console.log(res);
-        if (res.id)
+        if (res.id) {
             if (role == 'student') return window.location.href = `/lecturer`;
             if (role == 'lecturer') return window.location.href = `/schedule/edit/${res.id}`
+        }
+        else showAlert(res)
     })
     .catch(err => {
         console.log(err);
@@ -136,6 +138,42 @@ function alertClose() {
     document.getElementById('alert-content').innerText = '';
 }
 
+function createSchedule(lecturer_id) {
+    fetch(`http://lecturer-schedule.herokuapp.com/schedule/${lecturer_id}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(res => res.json())
+    .then(res => {
+        if (res) {
+            showAlert('Schedule Created');
+            setTimeout(() => {window.location.href = `/schedule/edit/${res}`}, 3000)
+        }
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}
+function deleteSchedule(lecturer_id) {
+    fetch(`http://lecturer-schedule.herokuapp.com/schedule/${lecturer_id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(res => res.json())
+    .then(res => {
+        if (res) {
+            showAlert('Schedule deleted');
+            setTimeout(() => {window.location.href = `/schedule/edit/${res}`}, 3000)
+        }
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}
 function updateSchedule(e) {
     const id = e.target.id;
     let mon = document.getElementById(`${id}-mon`).value;

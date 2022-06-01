@@ -1,25 +1,28 @@
 extends layout
 
 block content
-  h1.my-3.text-center Lecture Schedule 
-  div#table-container
-    table.table.table-bordered.table-striped
-        thead 
-            tr
-                th(scope='col') #
-                th(scope='col') time 
-                th(scope='col') Monday 
-                th(scope='col') Tuesday 
-                th(scope='col') Wednesday 
-                th(scope='col') Thursday 
-                th(scope='col') Friday 
-        tbody             
-            each val in schedule
-                tr  
-                    th(scope='row') #{val.period_id}
-                    td #{val.time}
-                    td #{val.monday}
-                    td #{val.tuesday}
-                    td #{val.wednesday}
-                    td #{val.thursday}
-                    td #{val.friday}
+  h1.my-3.text-center Lecturer's Schedule 
+  if schedule.length
+    div#table-container
+        table.table.table-bordered.table-striped
+            thead 
+                tr
+                    th(scope='col') #
+                    th(scope='col') time 
+                    th(scope='col') Monday 
+                    th(scope='col') Tuesday 
+                    th(scope='col') Wednesday 
+                    th(scope='col') Thursday 
+                    th(scope='col') Friday 
+            tbody             
+                each val in schedule
+                    tr  
+                        th(scope='row') #{val.period_id}
+                        td #{val.time}
+                        td #{val.monday}
+                        td #{val.tuesday}
+                        td #{val.wednesday}
+                        td #{val.thursday}
+                        td #{val.friday}
+  else
+    h3.text-center.my-5.text-muted lecturer's Schedule has not been populated
