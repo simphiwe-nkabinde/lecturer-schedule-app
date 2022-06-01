@@ -103,7 +103,7 @@
 .bg-image {
   background: linear-gradient(0deg, rgb(0 0 0 / 47%), #000000a1), url(/images/students2.jpeg) no-repeat center;
   background-size: cover;
-  height: 88vh;
+  min-height: 90vh;
 }
 #landing {
   background: linear-gradient(0deg, rgb(0 0 0 / 47%), #000000a1), url(/images/students.jpeg) no-repeat center;

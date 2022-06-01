@@ -38,14 +38,24 @@ module.exports.login_get = (req, res) => {
 module.exports.register_post = (req, res) => {
     const { name, email, password, departmentId } = req.body;
     let query = {
-        text: `INSERT INTO students ( name, email, password , department_id) VALUES ($1, $2, $3, $4) RETURNING student_id as id, name, department_id`,
-        value: [name, email, password, departmentId]
+        text: '',
+        value: [name, email, password]
     }
+
+    if (role == 'student') {
+        query.text = `INSERT INTO students ( name, email, password , department_id) VALUES ($1, $2, $3, $4) RETURNING student_id as id, name, department_id`;
+        query.value.push(departmentId)
+    }
+    else if (role == 'lecturer')
+        query.text = `INSERT INTO lecturers ( name, email, password ) VALUES ($1, $2, $3) RETURNING lecturer_id as id, name`;
+
+    console.log(query);
     pool.query(query.text, query.value)
     .then(data => {
+        console.log(data);
         if (data.rows) {
             console.log(data.rows);
-            return res.json(`auth/login`)
+            return res.json(data.rows)
         } else { res.status(404).json('error, could not register') }
     })
     .catch(err => {

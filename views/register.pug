@@ -6,8 +6,15 @@ block content
         p#alert-content.m-0.p-1
         i#alert-close.bi.bi-x-lg(onclick="alertClose()")
 
-      h2.display-4.text-center.pt-4.slideFromTop Register
-      form#login-form.mt-4.mx-auto.slideFromLeft
+      h2.display-4.text-center.slideFromTop Register
+      form#login-form.mt-2.mx-auto.slideFromLeft
+        .d-flex.justify-content-evenly(onchange="toggleStudentFieldsDisplay(event)")
+            .form-check
+               input#role1.form-check-input(type='radio' name='role' value='student' checked='')
+               label.form-check-label(for='role')| Student
+            .form-check
+               input#role2.form-check-input(type='radio' name='role' value='lecturer')
+               label.form-check-label(for='role')| Lecturer
         .mb-3
             label.form-label.text-shadow-sm(for='register-name') Name
             input#register-name.form-control.shadow-sm(type='text', required='true')
@@ -24,13 +31,17 @@ block content
             label.form-label.text-shadow-sm(for='register-password-confirm') Confirm Password
             input#register-password-confirm.form-control.shadow-sm(type='password' required)
             #passwordConfirmAlert.form-text.text-danger
-        label.form-label.text-shadow-sm Faculty
-        select#faculty-select.form-select.form-select-lg.mb-3(aria-label='.form-select-lg example' required onchange='getFacultyDepartments(event)')
-            option(selected disabled value='0') --Select Faculty
-            each faculty in faculties
-                option(value = faculty .id) #{faculty.name}
-        label.form-label.text-shadow-sm Department
-        select#department-select.form-select.form-select-lg.mb-3(aria-label='.form-select-lg example' required)
-            option(selected='' hidden disabled) --Select Department
-        #departmentIdAlert.form-text.text-danger
+        #student-only
+            label.form-label.text-shadow-sm Faculty
+            select#faculty-select.form-select.form-select-lg.mb-3(aria-label='.form-select-lg example' required onchange='getFacultyDepartments(event)')
+                option(selected disabled value='0') --Select Faculty
+                each faculty in faculties
+                    option(value = faculty .id) #{faculty.name}
+            label.form-label.text-shadow-sm Department
+            select#department-select.form-select.form-select-lg.mb-3(aria-label='.form-select-lg example' required)
+                option(selected='' hidden disabled) --Select Department
+            #departmentIdAlert.form-text.text-danger
         button.btn.btn-primary.w-50.me-1(onclick="register_onSubmit(event)") register  
+        
+        div
+            a.text-light(href="/auth/login") already registered? Login

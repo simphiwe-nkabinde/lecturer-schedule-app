@@ -29,31 +29,58 @@ function formValidationAlert(registerFormObj) {
     }
 }
 // Registration Form
+function toggleStudentFieldsDisplay(e) {
+    if (e.target.value != 'student') {
+        let studentFields = document.getElementById('student-only')
+        studentFields.style.display = 'none';
+    } else {
+        let studentFields = document.getElementById('student-only')
+        studentFields.style.display = 'block';
+    }
+}
 function register_onSubmit(event) {
     event.preventDefault()
+
+    let studentRadio = document.getElementsByName('role')[0];
+    let lecturerRadio = document.getElementsByName('role')[1];
+
     const name = document.getElementById('register-name').value;
     const email = document.getElementById('register-email').value;
     const password = document.getElementById('register-password').value;
     const passwordConfirm = document.getElementById('register-password-confirm').value;
-    const departmentId = document.getElementById('department-select').value;
+    const departmentId = studentRadio.checked ? document.getElementById('department-select').value : '';
+    let role = '';
 
-    if(!name || !email || !password || password != passwordConfirm || !departmentId) {
-        formValidationAlert({name, email, password, passwordConfirm, departmentId})
-        return
+    if (studentRadio.checked) {
+        role = 'student'
+        if(!name || !email || !password || password != passwordConfirm || !departmentId) {
+            formValidationAlert({name, email, password, passwordConfirm, departmentId})
+            return
+        }
+
+    } else if (lecturerRadio.checked){
+        role = 'lecturer'
+        if(!name || !email || !password || password != passwordConfirm) {
+            formValidationAlert({name, email, password, passwordConfirm})
+            return
+        }
+        
     }
-
+    console.log({name, email, password, role, departmentId});
     fetch('http://lecturer-schedule.herokuapp.com/auth/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({name, email, password, departmentId})
+        body: JSON.stringify(studentRadio.checked ? {name, email, password, role, departmentId} : {name, email, password, role})
     })
-    .then(res => res.json())
+    .then(res => {console.log(res); return res.json()})
     .then(res => {
         console.log(res);
-        showAlert("You have been successfully registered. Login to access lecturers' Schedule")
-        setTimeout(() => {window.location.href = `/auth/login`}, 4000)
+        if (res.id) {
+            showAlert("You have been successfully registered. Login to access lecturers' Schedules")
+            setTimeout(() => {window.location.href = `/auth/login`}, 3000)
+        }
     })
     .catch(err => {
         console.log(err);
