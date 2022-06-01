@@ -6,7 +6,7 @@ function getFacultyDepartments(event) {
     const faculty_id = event.target.value
     const departmentSelectElement = document.getElementById('department-select')
     let HtmlContent = ''
-    fetch(`http://localhost:3000/department/${faculty_id}`)
+    fetch(`https://lecturer-schedule.herokuapp.com/department/${faculty_id}`)
     .then(res => res.json())
     .then(res => {
         res.forEach(department => {
@@ -42,7 +42,7 @@ function register_onSubmit(event) {
         return
     }
 
-    fetch('http://localhost:3000/auth/register', {
+    fetch('https://lecturer-schedule.herokuapp.com/auth/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -81,7 +81,7 @@ function login_post(event) {
             role = lecturerRadio.value;
     }
     // Request
-    fetch('http://localhost:3000/auth/login', {
+    fetch('https://lecturer-schedule.herokuapp.com/auth/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
