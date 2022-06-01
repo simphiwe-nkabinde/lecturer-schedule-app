@@ -1,0 +1,36 @@
+extends layout
+
+block content
+  #alert-box.m-3.border.border-dark.p-1.rounded.alert-success.fadeIn
+    p#alert-content.m-0.p-1
+    i#alert-close.bi.bi-x-lg(onclick="alertClose()")
+    
+  h1.my-3.text-center My Schedule 
+  div#table-container.mx-2
+    table.table.table-bordered.table-striped
+        thead 
+            tr
+                th(scope='col') #
+                th(scope='col') time 
+                th(scope='col') Monday 
+                th(scope='col') Tuesday 
+                th(scope='col') Wednesday 
+                th(scope='col') Thursday 
+                th(scope='col') Friday 
+        tbody             
+            each val in schedule
+                tr  
+                    th(scope='row') #{val.period_id}
+                    td #{val.time}
+                    td 
+                        textarea(id=val.schedule_id+'-mon') #{val.monday}
+                    td 
+                        textarea(id=val.schedule_id+'-tue') #{val.tuesday}
+                    td 
+                        textarea(id=val.schedule_id+'-wed') #{val.wednesday}
+                    td 
+                        textarea(id=val.schedule_id+'-thu') #{val.thursday}
+                    td 
+                        textarea(id=val.schedule_id+'-fri') #{val.friday}
+                    td.bg-light 
+                        button.btn.btn-sm.btn-success(id=val.schedule_id onclick="updateSchedule(event)") save

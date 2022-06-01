@@ -118,7 +118,8 @@ function login_post(event) {
     .then(res => {
         console.log(res);
         if (res.id)
-            window.location.href = `/lecturer`;
+            if (role == 'student') return window.location.href = `/lecturer`;
+            if (role == 'lecturer') return window.location.href = `/schedule/edit/${res.id}`
     })
     .catch(err => {
         console.log(err);
@@ -133,4 +134,30 @@ function showAlert(content) {
 function alertClose() {
     document.getElementById('alert-box').style.display = 'none';
     document.getElementById('alert-content').innerText = '';
+}
+
+function updateSchedule(e) {
+    const id = e.target.id;
+    let mon = document.getElementById(`${id}-mon`).value;
+    let tue = document.getElementById(`${id}-tue`).value;
+    let wed = document.getElementById(`${id}-wed`).value;
+    let thu = document.getElementById(`${id}-thu`).value;
+    let fri = document.getElementById(`${id}-fri`).value;
+
+    fetch(`http://lecturer-schedule.herokuapp.com/schedule/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({mon,tue,wed,thu,fri})
+    })
+    .then(res => res.json())
+    .then(res => {
+        if (res) {
+            showAlert('Schedule updated')
+        }
+    })
+    .catch(err => {
+        console.log(err);
+    })
 }
