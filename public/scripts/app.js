@@ -17,7 +17,7 @@ function getFacultyDepartments(event) {
     const faculty_id = event.target.value
     const departmentSelectElement = document.getElementById('department-select')
     let HtmlContent = ''
-    fetch(`${HOST_URL}/department/${faculty_id}`)
+    fetch(`${HOST_URL}/department/${faculty_id}`, {credentials: 'include'})
     .then(res => res.json())
     .then(res => {
         res.forEach(department => {
@@ -83,6 +83,7 @@ function register_onSubmit(event) {
         headers: {
             'Content-Type': 'application/json'
         },
+        credentials: "include",
         body: JSON.stringify(studentRadio.checked ? {name, email, password, role, departmentId} : {name, email, password, role})
     })
     .then(res => res.json())
@@ -123,6 +124,7 @@ function login_post(event) {
         headers: {
             'Content-Type': 'application/json'
         },
+        credentials: "include",
         body: JSON.stringify({email, password, role})
     })
     .then(res => res.json())
@@ -154,7 +156,8 @@ function createSchedule(lecturer_id) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        credentials: "include",
     })
     .then(res => res.json())
     .then(res => {
@@ -172,7 +175,8 @@ function deleteSchedule(lecturer_id) {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        credentials: "include",
     })
     .then(res => res.json())
     .then(res => {
@@ -198,6 +202,7 @@ function updateSchedule(e) {
         headers: {
             'Content-Type': 'application/json'
         },
+        credentials: "include",
         body: JSON.stringify({mon,tue,wed,thu,fri})
     })
     .then(res => res.json())
@@ -213,7 +218,7 @@ function updateSchedule(e) {
 
 function logout() {
     document.cookie = ''
-    fetch(`${HOST_URL}/auth/logout`)
+    fetch(`${HOST_URL}/auth/logout`, {credentials: "include",})
     .then(res => res.json())
     .then(res => {
         setTimeout(() => {window.location.href = `/`}, 2000)
