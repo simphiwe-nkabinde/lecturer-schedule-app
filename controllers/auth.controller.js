@@ -5,9 +5,9 @@ dotenv.config()
 const pool = require('../db_connect')
 
 const cookieOptions = {
-    httpOnly: true, 
+    httpOnly: false, 
     maxAge: 1000 * 60 * 5,
-    sameSite: 'none',
+    // sameSite: 'none',
     secure: true
 }
 
@@ -88,7 +88,7 @@ module.exports.login_post = (req, res) => {
             }
             console.log(payload);
             let token = createToken(payload)
-            // res.cookie('jwt', token, cookieOptions) 
+            res.cookie('USER_TOKEN', token, cookieOptions) 
             if ( role == 'student') return res.status(200).json(payload)
             else return res.status(200).json(payload)
 
@@ -96,7 +96,7 @@ module.exports.login_post = (req, res) => {
     })
     .catch(err => {
         console.log(err);
-        return res.status(404).json(error)
+        return res.status(404).json(err)
     })
 }
 
@@ -108,6 +108,6 @@ module.exports.login_post = (req, res) => {
 module.exports.logout = (req, res) => {
     console.log(req.cookies);
     //remove user jwt token
-    res.cookie('jwt', '', cookieOptions)
+    res.cookie('USER_TOKEN', '', cookieOptions)
     res.json({userStatus: 'logged out'})
 }

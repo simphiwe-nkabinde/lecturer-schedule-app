@@ -1,3 +1,14 @@
+const HOST_URL = 'http://lecturer-scheduleD.herokuapp.com';
+// const HOST_URL = 'http://localhost:3000';
+
+setTimeout(() => {
+    if (document.cookie.length < 12) {
+        document.getElementById('logout-btn').remove();
+    }
+}, 10)
+
+
+
 function previousPage() {
     history.back()
 }
@@ -6,7 +17,7 @@ function getFacultyDepartments(event) {
     const faculty_id = event.target.value
     const departmentSelectElement = document.getElementById('department-select')
     let HtmlContent = ''
-    fetch(`http://lecturer-schedule.herokuapp.com/department/${faculty_id}`)
+    fetch(`${HOST_URL}/department/${faculty_id}`)
     .then(res => res.json())
     .then(res => {
         res.forEach(department => {
@@ -67,7 +78,7 @@ function register_onSubmit(event) {
         
     }
     
-    fetch('http://lecturer-schedule.herokuapp.com/auth/register', {
+    fetch(`${HOST_URL}/auth/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -107,7 +118,7 @@ function login_post(event) {
             role = lecturerRadio.value;
     }
     // Request
-    fetch('http://lecturer-schedule.herokuapp.com/auth/login', {
+    fetch(`${HOST_URL}/auth/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -139,7 +150,7 @@ function alertClose() {
 }
 
 function createSchedule(lecturer_id) {
-    fetch(`http://lecturer-schedule.herokuapp.com/schedule/${lecturer_id}`, {
+    fetch(`${HOST_URL}/schedule/${lecturer_id}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -157,7 +168,7 @@ function createSchedule(lecturer_id) {
     })
 }
 function deleteSchedule(lecturer_id) {
-    fetch(`http://lecturer-schedule.herokuapp.com/schedule/${lecturer_id}`, {
+    fetch(`${HOST_URL}/schedule/${lecturer_id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
@@ -182,7 +193,7 @@ function updateSchedule(e) {
     let thu = document.getElementById(`${id}-thu`).value;
     let fri = document.getElementById(`${id}-fri`).value;
 
-    fetch(`http://lecturer-schedule.herokuapp.com/schedule/${id}`, {
+    fetch(`${HOST_URL}/schedule/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -199,3 +210,14 @@ function updateSchedule(e) {
         console.log(err);
     })
 }
+
+function logout() {
+    document.cookie = ''
+    fetch(`${HOST_URL}/auth/logout`)
+    .then(res => res.json())
+    .then(res => {
+        setTimeout(() => {window.location.href = `/`}, 2000)
+    })
+}
+
+

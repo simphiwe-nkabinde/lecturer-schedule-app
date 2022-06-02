@@ -6,8 +6,9 @@ const jwt = require('jsonwebtoken')
  * @param {*} next next()
  * @returns 
  */
-module.exports.student = (req, res, next) => {
-    let token = req.cookies.jwt
+module.exports.studentOnly = (req, res, next) => {
+    console.log('middlware');
+    let token = req.cookies.USER_TOKEN
     console.log(token);
     if (token) {
         let decoded = jwt.verify(token, 'w')
@@ -16,15 +17,17 @@ module.exports.student = (req, res, next) => {
                 next()
             }
         } else {
-            return res.status(401).json({error: 'token invalid. Please Login'})
+            return res.redirect('/auth/login');
+            // return res.status(401).json({error: 'token invalid. Please Login'})
         }
     }
     else {
-        res.status(401).json({error: 'token not found. Please Login'})
+        return res.redirect('/auth/login');
+        // res.status(401).json({error: 'token not found. Please Login'})
     }
 }
-module.exports.lecturer = (req, res, next) => {
-    let token = req.cookies.jwt
+module.exports.lecturerOnly = (req, res, next) => {
+    let token = req.cookies.USER_TOKEN
     console.log(token);
     if (token) {
         let decoded = jwt.verify(token, 'w')
@@ -33,10 +36,31 @@ module.exports.lecturer = (req, res, next) => {
                 next()
             }
         } else {
-            return res.status(401).json({error: 'token invalid. Please Login'})
+            return res.redirect('/auth/login');
+            // return res.status(401).json({error: 'token invalid. Please Login'})
         }
     }
     else {
-        res.status(401).json({error: 'token not found. Please Login'})
+        return res.redirect('/auth/login');
+        // res.status(401).json({error: 'token not found. Please Login'})
+    }
+}
+module.exports.loggedIn = (req, res, next) => {
+    let token = req.cookies.USER_TOKEN
+    console.log(token);
+    if (token) {
+        let decoded = jwt.verify(token, 'w')
+        if (decoded) {
+            if (decoded.userType === 'lecturer' || decoded.userType === 'student') {
+                next()
+            }
+        } else {
+            return res.redirect('/auth/login');
+            // return res.status(401).json({error: 'token invalid. Please Login'})
+        }
+    }
+    else {
+        return res.redirect('/auth/login');
+        // res.status(401).json({error: 'token not found. Please Login'})
     }
 }
