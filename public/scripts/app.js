@@ -17,13 +17,7 @@ function getFacultyDepartments(event) {
     const faculty_id = event.target.value
     const departmentSelectElement = document.getElementById('department-select')
     let HtmlContent = ''
-    fetch(`${HOST_URL}/department/${faculty_id}`, {
-        mode: 'same-origin',
-        headers : {
-            'Access-Control-Allow-Origin': 'http://lecturer-schedule.herokuapp.com/department',
-        },
-        credentials: 'include'
-    })
+    fetch(`${HOST_URL}/department/${faculty_id}`)
     .then(res => res.json())
     .then(res => {
         res.forEach(department => {
