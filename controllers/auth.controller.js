@@ -7,7 +7,7 @@ const pool = require('../db_connect')
 const cookieOptions = {
     httpOnly: false, 
     maxAge: 1000 * 60 * 5,
-    secure: true
+    secure: false
 }
 
 const createToken = (payload) => {
