@@ -20,7 +20,7 @@ function getFacultyDepartments(event) {
     fetch(`${HOST_URL}/department/${faculty_id}`, {
         mode: 'cors',
         headers : {
-            'Access-Control-Allow-Origin': 'http://lecturer-schedule.herokuapp.com',
+            'Access-Control-Allow-Origin': 'http://lecturer-schedule.herokuapp.com/department',
         },
         credentials: 'include'
     })
