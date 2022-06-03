@@ -1,4 +1,4 @@
-const HOST_URL = 'http://lecturer-schedule.herokuapp.com';
+// const HOST_URL = 'http://lecturer-schedule.herokuapp.com';
 // const HOST_URL = 'http://localhost:3000';
 
 setTimeout(() => {
