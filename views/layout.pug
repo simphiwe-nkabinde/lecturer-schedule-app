@@ -7,7 +7,7 @@ html
     link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css')
     link(href='/stylesheets/style.css', rel='stylesheet')
   body
-    header.text-center.p-2.bg-purple.shadow.mb-0.border-bottom.border-danger
+    header.text-center.p-2.bg-purple-grad.shadow.mb-0.border-bottom.border-light
       p.fs-1.text-light.fadeIn.mb-0
         a.text-decoration-none.text-light(href="/")
           i.bi.bi-calendar4-week
@@ -15,9 +15,9 @@ html
       .small.fadeIn know you lecturer's timetable
        
 
-      button#logout-btn.btn.btn-sm.btn-primary.border-danger.float-end(onclick="logout()")
+      button#logout-btn.bg-purple.btn.btn-sm.btn-primary.border-light.shadow.float-end(onclick="logout()")
         i.bi.bi-box-arrow-right log out
-    
+    span#user-email.small.ms-2.text-muted #{userEmail}
     div
       block content
 

@@ -14,7 +14,7 @@ module.exports.lecturer_get = (req, res) => {
     pool.query(query.text)
     .then(data => {
         if(data.rowCount) {
-            res.render('lecturer', { lecturers: data.rows })
+            res.render('lecturer', { lecturers: data.rows, userEmail:req.userEmail })
         } else {res.status(404).json('error. lecturers not found')}
     })
     .catch(err => {

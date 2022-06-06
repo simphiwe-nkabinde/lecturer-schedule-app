@@ -6,7 +6,7 @@ const pool = require('../db_connect')
 
 const cookieOptions = {
     httpOnly: false, 
-    maxAge: 1000 * 60 * 5,
+    maxAge: 1000 * 60 * 60 * 2,
     secure: false
 }
 

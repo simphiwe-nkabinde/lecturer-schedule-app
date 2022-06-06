@@ -7,4 +7,4 @@ block content
   h1.my-3.text-center Choose a Lecturer
   div.container-scroll.text-center  
     each val in lecturers
-      a(href=`/schedule/${val.id}`, style={width:'12rem'}).shadow-sm.d-block.btn.btn-outline-secondary.my-2.mx-auto #{val.name}
+      a(href=`/schedule/${val.id}`, style={width:'12rem'}).lecturer-btn.d-block.btn.btn-outline-secondary.my-3.mx-auto #{val.name}

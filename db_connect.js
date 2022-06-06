@@ -13,4 +13,4 @@ const pool = new Pool({
 });
 
 console.log("The pool is open");
-// module.exports = pool;
+module.exports = pool;

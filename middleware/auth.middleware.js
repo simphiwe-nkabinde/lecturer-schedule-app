@@ -14,6 +14,7 @@ module.exports.studentOnly = (req, res, next) => {
         let decoded = jwt.verify(token, 'w')
         if (decoded) {
             if (decoded.userType === 'student') {
+                req.userEmail = decoded.email
                 next()
             }
         } else {
@@ -33,6 +34,7 @@ module.exports.lecturerOnly = (req, res, next) => {
         let decoded = jwt.verify(token, 'w')
         if (decoded) {
             if (decoded.userType === 'lecturer') {
+                req.userEmail = decoded.email
                 next()
             }
         } else {
@@ -52,6 +54,7 @@ module.exports.loggedIn = (req, res, next) => {
         let decoded = jwt.verify(token, 'w')
         if (decoded) {
             if (decoded.userType === 'lecturer' || decoded.userType === 'student') {
+                req.userEmail = decoded.email
                 next()
             }
         } else {

@@ -1,13 +1,18 @@
-// const HOST_URL = 'http://lecturer-schedule.herokuapp.com';
+const HOST_URL = 'http://lecturer-schedule.herokuapp.com';
 // const HOST_URL = 'http://localhost:3000';
 
-setTimeout(() => {
-    if (document.cookie.length < 12) {
+window.onload = () => {
+
+    let cookie = document.cookie;
+    let startIndex =  cookie.indexOf('USER_LOGGED');
+    let tokenStartIndex = cookie.indexOf('=', startIndex) + 1
+    let token = cookie.substring(tokenStartIndex)
+
+    if (token.length < 10) {
         document.getElementById('logout-btn').remove();
+        document.getElementById('user-email').remove();
     }
-}, 10)
-
-
+}
 
 function previousPage() {
     history.back()
@@ -224,5 +229,3 @@ function logout() {
         setTimeout(() => {window.location.href = `/`}, 2000)
     })
 }
-
-
