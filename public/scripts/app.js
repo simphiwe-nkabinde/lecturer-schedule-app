@@ -1,5 +1,5 @@
-const HOST_URL = 'http://lecturer-schedule.herokuapp.com';
-// const HOST_URL = 'http://localhost:3000';
+// const HOST_URL = 'http://lecturer-schedule.herokuapp.com';
+const HOST_URL = 'http://localhost:3000';
 
 window.onload = () => {
 
@@ -215,6 +215,11 @@ function updateSchedule(e) {
         if (res) {
             showAlert('Schedule updated')
         }
+        //remove changed textarea's <td> background highlight
+        let trChildren = e.target.parentElement.parentElement.children
+        for (var i = 0; i < trChildren.length; i++) {
+            trChildren[i].style.backgroundColor = 'inherit';
+          }
     })
     .catch(err => {
         console.log(err);
@@ -229,3 +234,10 @@ function logout() {
         setTimeout(() => {window.location.href = `/`}, 2000)
     })
 }
+
+document.querySelectorAll('textarea').forEach(item => {
+    //highlight background of changed textarea's <td>
+    item.addEventListener('change', event => {
+      item.parentElement.style.backgroundColor = '#ffbf0080';
+    })
+})

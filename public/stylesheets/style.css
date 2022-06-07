@@ -130,7 +130,9 @@
 #alert-box i {
   cursor: pointer;
 }
-
+td {
+  text-align: center;
+}
 
 .lecturer-btn:hover {
   background: linear-gradient(180deg, #4159d0b0 0%, #6154d6b1 68%);
