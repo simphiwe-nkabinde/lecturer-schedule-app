@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  h1.my-3.text-center Lecturer's Schedule 
+  h1.display-4.my-3.text-center.text-capitalize Lecturer: #{schedule[0].name} 
   if schedule.length
     div#table-container
         table.table.table-bordered.table-striped
