@@ -1,7 +1,10 @@
 extends layout
 
 block content
-  h1.display-4.my-3.text-center.text-capitalize Lecturer: #{schedule[0].name} 
+  h1.display-5.my-3.text-center.text-capitalize Lecturer: #{schedule[0].name} 
+  .container.mb-4.rounded.alert-primary.p-2
+    h6 Alerts from Lecturer:
+    p.m-0 Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum ut quidem tenetur voluptatem eligendi quibusdam tempore tempora, omnis facere deserunt!
   if schedule.length
     div#table-container
         table.table.table-bordered.table-striped

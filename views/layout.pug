@@ -8,10 +8,18 @@ html
     link(href='/stylesheets/style.css', rel='stylesheet')
   body
     header.text-center.p-2.bg-purple-grad.shadow.mb-0.border-bottom.border-light
-      p.fs-1.text-light.fadeIn.mb-0
-        a.text-decoration-none.text-light(href="/")
-          i.bi.bi-calendar4-week
-          span.mx-2 Lecturer's Schedule
+      .float-start.text-light.btn(onclick="previousPage()")
+        i.bi.bi-arrow-left-circle
+      if !schedule && !lecturers 
+        p.fs-1.text-light.fadeIn.mb-0
+          a.text-decoration-none.text-light(href="/")
+            i.bi.bi-calendar4-week
+            span.mx-2 Lecturer's Schedule
+      else 
+        p.fs-1.text-light.fadeIn.mb-0
+          a.text-decoration-none.text-light(href="#")
+            i.bi.bi-calendar4-week
+            span.mx-2 Lecturer's Schedule
       .small.fadeIn know you lecturer's timetable
        
 
