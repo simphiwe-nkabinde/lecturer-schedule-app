@@ -1,10 +1,7 @@
 extends layout
 
 block content
-  //- div
-  //-   span(onclick='previousPage()').btn
-  //-     i(class="bi bi-caret-left-fill text-secondary fs-4") Departments
-  h1.my-3.text-center Choose a Lecturer
+  h1.my-3.text-center.display-5 Choose a Lecturer
   div.container-scroll.text-center  
     each val in lecturers
       a(href=`/schedule/${val.id}`, style={width:'12rem'}).lecturer-btn.d-block.btn.btn-outline-secondary.my-3.mx-auto #{val.name}
