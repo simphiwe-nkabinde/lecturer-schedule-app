@@ -4,6 +4,13 @@ students to have easy access to it. Lecturers can create, delete and update thei
 message for students to see. Students can view each lecturer's timetable schedule and download it in pdf format. An admin user can remove
 student or lecturer users from the database and make changes to lecturers' timetable schedule.
 
+## Built with
+- [ExpressJS](https://expressjs.com/)
+- [Postgresql](https://www.postgresql.org/)
+- [node-postgres](https://node-postgres.com/)
+- [PugJS](https://pugjs.org/api/getting-started.html)
+- [Bootstrap](https://getbootstrap.com/)
+
 ## Installation
 
 1. clone the repo into a local directory on your machine.
@@ -30,3 +37,8 @@ PG_DATABASE=*
 ## Usage
 
 run ```npm start``` and open the browser at http://localhost:3000
+
+
+ <img src="readme_img/app_home.png" width="400" />   <img src="readme_img/app_login.png" width="400" />
+ <img src="readme_img/app_register.png" width="400" />   <img src="readme_img/app_table.png" width="400" />
+ <img src="readme_img/app_table_edit.png" width="400" />
