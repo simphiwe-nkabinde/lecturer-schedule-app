@@ -47,6 +47,10 @@ module.exports.register_post = (req, res) => {
     }
     else if (role == 'lecturer')
         query.text = `INSERT INTO lecturers ( name, email, password ) VALUES ($1, $2, $3) RETURNING lecturer_id as id, name`;
+    
+    else if (role == 'admin')
+        query.text = `INSERT INTO admin ( name, email, password ) VALUES ($1, $2, $3) RETURNING lecturer_id as id, name`;
+    
 
     console.log(query);
     pool.query(query.text, query.value)
@@ -73,7 +77,10 @@ module.exports.login_post = (req, res) => {
     if (role == 'student')
         query.text = `SELECT student_id as id , name, email, department_id FROM students WHERE email = $1 AND password = $2;`
     else if (role == 'lecturer')
-        query.text = `SELECT lecturer_id as id , name, email FROM lecturers WHERE email = $1 AND password = $2;`
+        query.text = `SELECT lecturer_id as id , name, email FROM lecturers WHERE email = $1 AND password = $2;`;
+    else if (role == 'admin')
+        query.text = `SELECT admin_id as id , name, email FROM admin WHERE email = $1 AND password = $2;`
+
 
     pool.query(query.text, query.value)
     .then(data => {
@@ -83,15 +90,13 @@ module.exports.login_post = (req, res) => {
                 name: data.rows[0].name,
                 email: data.rows[0].email,
                 departmentId: role == 'student' ? data.rows[0].department_id : '',
-                userType: role == 'student' ? 'student' : 'lecturer'
+                userType: role
             }
-            console.log(payload);
             let token = createToken(payload)
-            res.cookie('USER_TOKEN', token, cookieOptions) 
-            if ( role == 'student') return res.status(200).json(payload)
-            else return res.status(200).json(payload)
+            res.cookie('USER_TOKEN', token, cookieOptions)
+            return res.status(200).json(payload)
 
-        } else { res.status(404).json('user does not exist')}
+        } else { res.status(404).json('incorrect email or password')}
     })
     .catch(err => {
         console.log(err);
@@ -109,4 +114,32 @@ module.exports.logout = (req, res) => {
     //remove user jwt token
     res.cookie('USER_TOKEN', '', cookieOptions)
     res.json({userStatus: 'logged out'})
+}
+
+module.exports.getStudents = (req, res) => {
+    let queryText = 'SELECT student_id as id, name, email FROM students;'
+
+    pool.query(queryText)
+    .then(data => {
+        if(data.rowCount) {
+            res.render('all_students', { students: data.rows });
+        } else { return res.status(404).json('students not found')}
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}
+
+module.exports.getLecturers = (req, res) => {
+    let queryText = 'SELECT lecturer_id as id, name, email FROM lecturers;'
+
+    pool.query(queryText)
+    .then(data => {
+        if(data.rowCount) {
+            res.render('all_lecturers', { lecturers: data.rows });
+        } else { return res.status(404).json('lecturers not found')}
+    })
+    .catch(err => {
+        console.log(err);
+    })
 }
