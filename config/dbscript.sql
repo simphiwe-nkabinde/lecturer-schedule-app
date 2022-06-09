@@ -127,6 +127,10 @@ VALUES
     ('karabo', 'karabo@email.com', 'karabo123'),
     ('tina', 'tina@email.com', 'tina123');
 
+INSERT INTO public.admin (name, email, password)
+VALUES
+    ('sipho', 'sipho@email.com', 'sipho123');
+
 DROP TABLE IF EXISTS public.lecturer_department CASCADE;
 CREATE TABLE public.lecturer_department(
     lecturer_department_id SERIAL NOT NULL,
