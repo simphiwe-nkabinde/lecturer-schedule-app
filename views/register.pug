@@ -1,7 +1,13 @@
 extends layout
 
 block content
-   .px-4.py-3.bg-image.text-light
+    nav.nav.justify-content-evenly.mb-1
+        a.nav-link(href="/about") About Us 
+        a.nav-link(href="/services") Services 
+        a.nav-link(href="/team") Team 
+        a.nav-link(href="/contact") Contact 
+
+    .px-4.py-3.bg-image.text-light
       #alert-box.border.border-dark.p-1.rounded.alert-success.fadeIn
         p#alert-content.m-0.p-1
         i#alert-close.bi.bi-x-lg(onclick="alertClose()")

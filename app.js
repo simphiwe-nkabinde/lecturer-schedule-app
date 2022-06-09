@@ -39,6 +39,19 @@ app.use('/department', departmentRoute);
 app.use('/lecturer', lecturerRoute);
 app.use('/schedule', scheduleRoute);
 
+app.get('/about', (req, res) => {
+  res.render('about', {title: 'about'})
+})
+app.get('/services', (req, res) => {
+  res.render('services', {title: 'services'})
+})
+app.get('/team', (req, res) => {
+  res.render('team' , {title: 'team'})
+})
+app.get('/contact', (req, res) => {
+  res.render('contact' , {title: 'contact'})
+})
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

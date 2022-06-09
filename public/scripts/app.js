@@ -9,7 +9,7 @@ window.onload = () => {
     let token = cookie.substring(tokenStartIndex)
 
     if (token.length < 10) {
-        document.getElementById('logout-btn').remove();
+        document.getElementById('logout-btn').innerHTML = "<a href='/auth/login' class='text-decoration-none text-light'>Login</a>"
         document.getElementById('user-email').remove();
     }
 }
@@ -168,7 +168,7 @@ function createSchedule(lecturer_id) {
     .then(res => {
         if (res) {
             showAlert('Schedule Created');
-            setTimeout(() => {window.location.href = `/schedule/edit/${res}`}, 3000)
+            setTimeout(() => {window.location.href = `/schedule/edit/${res}`}, 2000)
         }
     })
     .catch(err => {
@@ -187,7 +187,7 @@ function deleteSchedule(lecturer_id) {
     .then(res => {
         if (res) {
             showAlert('Schedule deleted');
-            setTimeout(() => {window.location.href = `/schedule/edit/${res}`}, 3000)
+            setTimeout(() => {window.location.href = `/schedule/edit/${res}`}, 2000)
         }
     })
     .catch(err => {
@@ -231,7 +231,7 @@ function logout() {
     fetch(`${HOST_URL}/auth/logout`, {credentials: "include",})
     .then(res => res.json())
     .then(res => {
-        setTimeout(() => {window.location.href = `/`}, 2000)
+        setTimeout(() => {window.location.href = `/`}, 1000)
     })
 }
 
