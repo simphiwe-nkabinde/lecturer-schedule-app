@@ -3,11 +3,16 @@ extends layout
 block content
     include includes/navbar.pug
    
-    #landing.px-4.py-5.text-light.text-center
-      p.slideFromLeft Lecturer's Schedule is a web application that allows students access to all lecturers' timetables
-      p.slideFromRight Lecturers can also create, update and delete their timetable. Changes made to a timetable by the lecturer are immediatley made available to students.
-      .my-4.slideFromBottom
-        a.btn.btn-primary(href="auth/register") register
-      .my-4.slideFromBottom
-        p.small already registered?
-        a.btn.btn-success(href="auth/login") Login
+    #landing.px-4.py-5.text-light.text-center.d-flex.flex-column.justify-content-evenly
+      div
+        p.slideFromLeft Lecturer's Schedule is a web application that allows students access to all lecturers' timetables
+        p.slideFromRight Lecturers can also create, update and delete their timetable. Changes made to a timetable by the lecturer are immediatley made available to students.
+      div 
+        .my-4.slideFromBottom
+          a.btn.btn-primary(href="auth/register") register
+        .my-4.slideFromBottom
+          p.small already registered?
+          a.btn.btn-success(href="auth/login") Login
+        
+      div 
+        a(href="/auth/login/admin").text-light admin login

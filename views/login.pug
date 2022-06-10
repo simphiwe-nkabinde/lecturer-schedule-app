@@ -16,9 +16,6 @@ block content
             label.form-label.text-shadow-sm(for='exampleInputPassword1') Password
             input#login-password.form-control.shadow-sm(type='password' required)
             #passwordAlert.form-text.text-danger
-         //- .mb-3.form-check
-         //-    input#login-remember.form-check-input(type='checkbox')
-         //-    label.form-check-label(for='exampleCheck1') remember me
 
          .d-flex.justify-content-evenly
             .form-check
@@ -32,5 +29,6 @@ block content
             button.btn.btn-primary.w-50(onclick="login_post(event)") Login 
          div.text-center   
             a.text-light(href="/auth/register") Not registered? Register
-            
-                  
+               
+      div.text-center.mt-5
+         a(href="/auth/login/admin").text-light admin login

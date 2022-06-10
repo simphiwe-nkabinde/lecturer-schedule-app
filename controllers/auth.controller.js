@@ -34,6 +34,11 @@ module.exports.register_get = (req, res) => {
 module.exports.login_get = (req, res) => {
     res.render('login', { title: 'Login page' })
 }
+
+module.exports.login_get_admin = (req, res) => {
+    res.render('login_admin', { title: 'Admin Login page' })
+}
+
 module.exports.register_post = (req, res) => {
     const { name, email, password, role, departmentId } = req.body;
     let query = {
@@ -49,7 +54,7 @@ module.exports.register_post = (req, res) => {
         query.text = `INSERT INTO lecturers ( name, email, password ) VALUES ($1, $2, $3) RETURNING lecturer_id as id, name`;
     
     else if (role == 'admin')
-        query.text = `INSERT INTO admin ( name, email, password ) VALUES ($1, $2, $3) RETURNING lecturer_id as id, name`;
+        query.text = `INSERT INTO admins ( name, email, password ) VALUES ($1, $2, $3) RETURNING admin_id as id, name`;
     
 
     console.log(query);
@@ -69,6 +74,7 @@ module.exports.register_post = (req, res) => {
 
 module.exports.login_post = (req, res) => {
     const { email, password, role } = req.body;
+    console.log(req.body);
 
     let query = {
         text: ``,
@@ -79,7 +85,7 @@ module.exports.login_post = (req, res) => {
     else if (role == 'lecturer')
         query.text = `SELECT lecturer_id as id , name, email FROM lecturers WHERE email = $1 AND password = $2;`;
     else if (role == 'admin')
-        query.text = `SELECT admin_id as id , name, email FROM admin WHERE email = $1 AND password = $2;`
+        query.text = `SELECT admin_id as id , name, email FROM admins WHERE email = $1 AND password = $2;`
 
 
     pool.query(query.text, query.value)
