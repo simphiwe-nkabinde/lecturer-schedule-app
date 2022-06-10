@@ -116,12 +116,15 @@ function login_post(event) {
     // Role
     let studentRadio = document.getElementsByName('role')[0];
     let lecturerRadio = document.getElementsByName('role')[1];
+    let adminRadion = document.getElementsByName('role')[2]
         
     for(i = 0; i < 2; i++) {
         if(studentRadio.checked)
             role = studentRadio.value;
-        else
+        else if(lecturerRadio.checked)
             role = lecturerRadio.value;
+        else 
+            role = adminRadion.value
     }
     // Request
     fetch(`${HOST_URL}/auth/login`, {
@@ -138,6 +141,7 @@ function login_post(event) {
         if (res.id) {
             if (role == 'student') return window.location.href = `/lecturer`;
             if (role == 'lecturer') return window.location.href = `/schedule/edit/${res.id}`
+            if (role == 'admin') return window.location.href = `/auth/students`
         }
         else showAlert(res)
     })
@@ -241,3 +245,18 @@ document.querySelectorAll('textarea').forEach(item => {
       item.parentElement.style.backgroundColor = '#ffbf0080';
     })
 })
+
+function removeUser(id, role) {
+    fetch(`${HOST_URL}/auth/${role}/${id}`, {
+        method: 'DELETE'
+    })
+    .then(res => res.json())
+    .then(res => {
+        showAlert(res)
+        //hide row
+        document.getElementById(`row-${id}`).style.display = 'none';
+    })
+    .catch(err => {
+        showAlert(err)
+    })
+}

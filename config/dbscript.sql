@@ -127,7 +127,17 @@ VALUES
     ('karabo', 'karabo@email.com', 'karabo123'),
     ('tina', 'tina@email.com', 'tina123');
 
-INSERT INTO public.admin (name, email, password)
+DROP TABLE IF EXISTS public.admins CASCADE;
+CREATE TABLE public.admins(
+	admin_id serial NOT NULL, 
+    name varchar(100),
+    email varchar(100) UNIQUE,
+    password varchar(50),
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+	Primary Key(admin_id)
+);
+INSERT INTO public.admins (name, email, password)
 VALUES
     ('sipho', 'sipho@email.com', 'sipho123');
 
@@ -183,7 +193,7 @@ CREATE TABLE public.schedules
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (schedule_id),
-    FOREIGN KEY (lecturer_id) REFERENCES public.lecturers (lecturer_id),
+    FOREIGN KEY (lecturer_id) REFERENCES public.lecturers (lecturer_id) ON DELETE CASCADE,
     FOREIGN KEY (period_id) REFERENCES public.periods (period_id)
 );
 INSERT INTO public.schedules (lecturer_id, period_id, monday, tuesday, wednesday, thursday, friday)

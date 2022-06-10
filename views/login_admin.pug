@@ -1,0 +1,25 @@
+extends layout
+
+block content
+   include includes/navbar.pug
+
+   .px-4.py-3.bg-image.text-light
+      include includes/alert.pug
+
+      h2.display-4.text-center.pt-4.slideFromTop #{title}
+      form#login-form.mt-4.mx-auto.slideFromLeft
+         .mb-3
+            label.form-label.text-shadow-sm(for='exampleInputEmail1') Email address
+            input#login-email.form-control.shadow-sm(type='email' aria-describedby='emailHelp' required)
+            #emailAlert.form-text.text-danger
+         .mb-3
+            label.form-label.text-shadow-sm(for='exampleInputPassword1') Password
+            input#login-password.form-control.shadow-sm(type='password' required)
+            #passwordAlert.form-text.text-danger
+
+         input.d-none(type='radio' name='role' value='admin')
+         input.d-none(type='radio' name='role' value='admin')
+         input.d-none(type='radio' name='role' value='admin' checked='')
+
+         div.text-center.mt-5
+            button.btn.btn-primary.w-50(onclick="login_post(event)") Login                
