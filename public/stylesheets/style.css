@@ -131,7 +131,7 @@
   cursor: pointer;
 }
 td {
-  text-align: center;
+  /* text-align: center; */
 }
 
 .lecturer-btn:hover {

@@ -8,9 +8,7 @@ block content
         a.nav-link(href="/contact") Contact 
 
     .px-4.py-3.bg-image.text-light
-      #alert-box.border.border-dark.p-1.rounded.alert-success.fadeIn
-        p#alert-content.m-0.p-1
-        i#alert-close.bi.bi-x-lg(onclick="alertClose()")
+      include includes/alert.pug
 
       h2.display-4.text-center.slideFromTop Register
       form#login-form.mt-2.mx-auto.slideFromLeft

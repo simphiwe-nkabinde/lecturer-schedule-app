@@ -122,7 +122,7 @@ module.exports.getStudents = (req, res) => {
     pool.query(queryText)
     .then(data => {
         if(data.rowCount) {
-            res.render('all_students', { students: data.rows });
+            res.render('all_students', { students: data.rows, userEmail:req.userEmail });
         } else { return res.status(404).json('students not found')}
     })
     .catch(err => {
@@ -136,7 +136,7 @@ module.exports.getLecturers = (req, res) => {
     pool.query(queryText)
     .then(data => {
         if(data.rowCount) {
-            res.render('all_lecturers', { lecturers: data.rows });
+            res.render('all_lecturers', { lecturers: data.rows, userEmail:req.userEmail });
         } else { return res.status(404).json('lecturers not found')}
     })
     .catch(err => {
