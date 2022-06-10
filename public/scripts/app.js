@@ -1,5 +1,5 @@
-const HOST_URL = 'http://lecturer-schedule.herokuapp.com';
-// const HOST_URL = 'http://localhost:3000';
+// const HOST_URL = 'http://lecturer-schedule.herokuapp.com';
+const HOST_URL = 'http://localhost:3000';
 
 window.onload = () => {
 
@@ -241,3 +241,18 @@ document.querySelectorAll('textarea').forEach(item => {
       item.parentElement.style.backgroundColor = '#ffbf0080';
     })
 })
+
+function removeUser(id, role) {
+    fetch(`${HOST_URL}/auth/${role}/${id}`, {
+        method: 'DELETE'
+    })
+    .then(res => res.json())
+    .then(res => {
+        showAlert(res)
+        //hide row
+        document.getElementById(`row-${id}`).style.display = 'none';
+    })
+    .catch(err => {
+        showAlert(err)
+    })
+}

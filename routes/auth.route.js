@@ -25,4 +25,7 @@ router.get('/students', loggedIn, authController.getStudents)
 //get all lecturers - admin only
 router.get('/lecturers', loggedIn, authController.getLecturers)
 
+//remove student or lecturer user
+router.delete('/:role/:id', loggedIn, authController.removeUser)
+
 module.exports = router;

@@ -143,3 +143,23 @@ module.exports.getLecturers = (req, res) => {
         console.log(err);
     })
 }
+
+module.exports.removeUser = (req, res) => {
+    const role = req.params.role
+    const id = req.params.id
+    let query = {
+        text: `DELETE FROM ${role}s where ${role}_id = $1`,
+        values: [id]
+    }
+
+    pool.query(query.text, query.values)
+    .then(data => {
+        if(data.rowCount) {
+            res.json(`${role} removed`)
+        } else { res.json(`${role} does not exist`) }
+    })
+    .catch(err => {
+        console.log(err);
+        res.json(`error removing ${role}`)
+    })
+}
