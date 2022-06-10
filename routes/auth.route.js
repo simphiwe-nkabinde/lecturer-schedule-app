@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const router = Router();
 const authController = require('../controllers/auth.controller');
-const { adminOnly } = require("../middleware/auth.middleware");
+const { adminOnly, loggedIn } = require("../middleware/auth.middleware");
 
 
 //register new user page
@@ -20,9 +20,9 @@ router.post('/login', authController.login_post)
 router.get('/logout', authController.logout)
 
 //get all students - admin only
-router.get('/students', authController.getStudents)
+router.get('/students', loggedIn, authController.getStudents)
 
 //get all lecturers - admin only
-router.get('/lecturers', adminOnly, authController.getLecturers)
+router.get('/lecturers', loggedIn, authController.getLecturers)
 
 module.exports = router;

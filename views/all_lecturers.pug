@@ -3,7 +3,7 @@ extends layout
 block content
     include includes/admin_navbar.pug
     include includes/alert.pug
-    h1.display-4.text-center.my-5 Student Users
+    h1.display-4.text-center.my-5 Lecturer Users
     div#table-container
         table.table.table-bordere
             thead
@@ -13,7 +13,7 @@ block content
                 th(scope='col') email
                 th(scope='col') remove
             tbody
-                each val in students
+                each val in lecturers
                     tr  
                         th(scope='row') #{val.id}
                         td #{val.name}
