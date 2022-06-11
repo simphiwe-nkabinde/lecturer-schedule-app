@@ -18,6 +18,9 @@
   border-top: 1px solid rgba(158, 158, 158, 0.5);
   border-bottom: 1px solid rgba(158, 158, 158, 0.5);
 }
+.text-xs {
+  font-size: .7rem;
+}
 
 @media screen and (max-width: 600px) {
   table {
@@ -27,6 +30,10 @@
   }
   td {
     padding: 0px;
+  }
+  .text-xs {
+    font-size: .4rem;
+    font-weight: normal;
   }
 }
 #login-form {
