@@ -2,7 +2,10 @@ extends layout
 
 block content
     include includes/admin_navbar.pug
+    include includes/back_btn.pug
     h1.my-3.text-center.display-5 Choose a Lecturer
     div.container-scroll.text-center  
         each val in lecturers
-            a(href=`/schedule/edit/${val.id}`, style={width:'12rem'}).lecturer-btn.d-block.btn.btn-outline-secondary.my-3.mx-auto #{val.name}
+            a(href=`/schedule/edit/${val.id}`, style={width:'12rem'}).lecturer-btn.d-block.btn.btn-outline-secondary.my-3.mx-auto 
+                div.text-dark #{val.name}
+                div.text-xs #{'('+val.faculty+')'}
