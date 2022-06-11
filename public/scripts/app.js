@@ -10,7 +10,6 @@ window.onload = () => {
 
     if (token.length < 10) {
         document.getElementById('logout-btn').innerHTML = "<a href='/auth/login' class='text-decoration-none text-light'>Login</a>"
-        document.getElementById('user-email').remove();
     }
 }
 
