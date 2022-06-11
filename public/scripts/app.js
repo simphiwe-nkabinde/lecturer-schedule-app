@@ -1,5 +1,5 @@
-// const HOST_URL = 'http://lecturer-schedule.herokuapp.com';
-const HOST_URL = 'http://localhost:3000';
+const HOST_URL = 'http://lecturer-schedule.herokuapp.com';
+// const HOST_URL = 'http://localhost:3000';
 
 window.onload = () => {
 
@@ -39,7 +39,7 @@ function getFacultyDepartments(event) {
 
 function formValidationAlert(registerFormObj) {
     for (const [key, value] of Object.entries(registerFormObj)) {
-        if (!value) {
+        if (!value) {i
             document.getElementById(`${key}Alert`).innerText = `this field is invalid`;
         }
     }
