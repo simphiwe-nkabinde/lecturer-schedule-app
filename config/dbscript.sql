@@ -119,7 +119,7 @@ CREATE TABLE public.lecturers(
     faculty_id INT NOT NULL,
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
-	Primary Key(lecturer_id)
+	Primary Key(lecturer_id),
     FOREIGN KEY (faculty_id) REFERENCES public.faculties (faculty_id)
 );
 INSERT INTO public.lecturers (name, email, faculty_id, password)
