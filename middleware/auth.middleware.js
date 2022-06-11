@@ -84,13 +84,11 @@ module.exports.adminOnly = (req, res, next) => {
 }
 module.exports.loggedIn = (req, res, next) => {
     let token = req.cookies.USER_TOKEN
-    console.log(token);
     if (token) {
         let decoded = jwt.verify(token, 'w')
         if (decoded) {
             if (decoded.role === 'lecturer' || decoded.role === 'student' || decoded.role === 'admin') {
                 req.user = decoded
-                console.log('locals:', req.locals);
                 next()
             }
         } else {
@@ -102,4 +100,14 @@ module.exports.loggedIn = (req, res, next) => {
         return res.redirect('/auth/login');
         // res.status(401).json({error: 'token not found. Please Login'})
     }
+}
+module.exports.NoAuthentication = (req, res, next) => {
+    let token = req.cookies.USER_TOKEN;
+    if (token) {
+        let decoded = jwt.verify(token, 'w')
+        if (decoded) {
+            req.user = decoded
+        }
+    }
+    next()
 }

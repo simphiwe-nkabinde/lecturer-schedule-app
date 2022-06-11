@@ -12,6 +12,7 @@ var facultyRoute = require('./routes/faculty.route');
 var departmentRoute = require('./routes/department.route');
 var lecturerRoute = require('./routes/lecturer.route');
 var scheduleRoute = require('./routes/schedule.route');
+const { NoAuthentication } = require('./middleware/auth.middleware');
 
 var app = express();
 
@@ -39,17 +40,17 @@ app.use('/department', departmentRoute);
 app.use('/lecturer', lecturerRoute);
 app.use('/schedule', scheduleRoute);
 
-app.get('/about', (req, res) => {
-  res.render('about', {title: 'about'})
+app.get('/about', NoAuthentication, (req, res) => {
+  res.render('about', {title: 'about', user: req.user})
 })
-app.get('/services', (req, res) => {
-  res.render('services', {title: 'services'})
+app.get('/services', NoAuthentication, (req, res) => {
+  res.render('services', {title: 'services', user: req.user})
 })
-app.get('/team', (req, res) => {
-  res.render('team' , {title: 'team'})
+app.get('/team', NoAuthentication, (req, res) => {
+  res.render('team' , {title: 'team', user: req.user})
 })
-app.get('/contact', (req, res) => {
-  res.render('contact' , {title: 'contact'})
+app.get('/contact', NoAuthentication, (req, res) => {
+  res.render('contact' , {title: 'contact', user: req.user})
 })
 
 // catch 404 and forward to error handler
