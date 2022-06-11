@@ -23,7 +23,8 @@ html
 
       #logout-btn.slideFromRight.bg-purple.btn.btn-sm.btn-primary.border-light.shadow.float-end(onclick="logout()")
         i.bi.bi-box-arrow-right log out
-    span#user-email.small.ms-2.text-muted #{userEmail}
+    if user
+      span#user-email.small.ms-2.text-muted #{user.email} #{'('+user.role+')'}
     div
       block content
 

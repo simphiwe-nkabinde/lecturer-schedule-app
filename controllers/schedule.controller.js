@@ -13,7 +13,7 @@ module.exports.schedule_get = (req, res) => {
 
     pool.query(query.text, query.values)
     .then(data => {
-        res.render('schedule', { schedule: data.rows, userEmail:req.userEmail });
+        res.render('schedule', { schedule: data.rows, user: req.user });
     })
     .catch(err => {
         console.log(err);
@@ -30,7 +30,7 @@ module.exports.schedule_edit_get = (req, res) => {
 
     pool.query(query.text, query.values)
     .then(data => {
-        res.render('schedule_edit', { schedule: data.rows , lecturer_id: lecturerId, userEmail:req.userEmail });
+        res.render('schedule_edit', { schedule: data.rows , lecturer_id: lecturerId, user: req.user});
     })
     .catch(err => {
         console.log(err);
