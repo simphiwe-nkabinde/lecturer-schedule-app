@@ -1,5 +1,5 @@
-const HOST_URL = 'http://lecturer-schedule.herokuapp.com';
-// const HOST_URL = 'http://localhost:3000';
+// const HOST_URL = 'http://lecturer-schedule.herokuapp.com';
+const HOST_URL = 'http://localhost:3000';
 
 window.onload = () => {
 
@@ -71,11 +71,7 @@ function register_onSubmit(event) {
     if (studentRadio.checked) {
         role = 'student'
         if(!name || !email || !password || password != passwordConfirm || !departmentId) {
-            formValidationAlert({name, email, password, passwordConf
-                postgres://eolofmytubstcz:fe55e970f880e0a048f9280218ce74ee2b10f1329bcff5a1a82665fc8f93fb71@ec2-34-227-120-79.compute-1.amazonaws.com:5432/delfg174nkc3ng
-                
-                postgres://zkahcxwssvvvxe:74314e1b4588eaecb76e28131ec23b7e7fbb278dce68f6f80bbb14d7652ab05e@ec2-34-198-186-145.compute-1.amazonaws.com:5432/da567cpburur72
-                rm, departmentId})
+            formValidationAlert({name, email, password, passwordConfirm, departmentId})
             return
         }
 
