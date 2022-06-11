@@ -125,7 +125,7 @@ module.exports.logout = (req, res) => {
 }
 
 module.exports.getStudents = (req, res) => {
-    let queryText = 'SELECT student_id as id, name, email FROM students;'
+    let queryText = 'SELECT students.*, departments.name as department, faculties.name as faculty FROM (students JOIN departments ON students.department_id = departments.department_id) JOIN faculties ON departments.faculty_id = faculties.faculty_id;'
 
     pool.query(queryText)
     .then(data => {
@@ -139,7 +139,7 @@ module.exports.getStudents = (req, res) => {
 }
 
 module.exports.getLecturers = (req, res) => {
-    let queryText = 'SELECT lecturer_id as id, name, email FROM lecturers;'
+    let queryText = 'SELECT lecturers.*, faculties.name as faculty FROM lecturers JOIN faculties ON lecturers.faculty_id = faculties.faculty_id;'
 
     pool.query(queryText)
     .then(data => {
