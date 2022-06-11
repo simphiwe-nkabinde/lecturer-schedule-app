@@ -2,9 +2,10 @@ extends layout
 
 block content
     include includes/alert.pug
+    include includes/back_btn.pug
 
     if schedule.length  
-        h1.display-5.my-3.text-center My Schedule 
+        h1.display-5.my-3.text-center #{schedule[0].name + "'s"}  Schedule 
         div#table-container
             table.table.table-bordered.table-striped
                 thead 
