@@ -109,6 +109,13 @@ CREATE TABLE public.students(
 	Primary Key(student_id),
     FOREIGN KEY (department_id) REFERENCES public.departments (department_id)
 );
+INSERT INTO public.students (name, email, department_id, password)
+VALUES
+    ('sizwe', 'sizwe@email.com', 10, 'sizwe123'),
+    ('tshepo', 'tshepo@email.com', 21, 'tshepo123'),
+    ('luyanda', 'luyanda@email.com', 32, 'luyanda123'),
+    ('amanda', 'amanda@email.com', 43, 'amanda123');
+    ('jabob', 'jacob@email.com', 1, 'jabob123');
 
 DROP TABLE IF EXISTS public.lecturers CASCADE;
 CREATE TABLE public.lecturers(
@@ -124,10 +131,10 @@ CREATE TABLE public.lecturers(
 );
 INSERT INTO public.lecturers (name, email, faculty_id, password)
 VALUES
-    ('david', 'david@email.com', 1, 'david123'),
-    ('sipho', 'sipho@email.com', 3, 'sipho123'),
-    ('karabo', 'karabo@email.com', 5, 'karabo123'),
-    ('tina', 'tina@email.com', 4, 'tina123');
+    ('david Khumbu', 'david@email.com', 1, 'david123'),
+    ('sipho ndaba', 'sipho@email.com', 3, 'sipho123'),
+    ('karabo morena', 'karabo@email.com', 5, 'karabo123'),
+    ('tina vanwyke', 'tina@email.com', 4, 'tina123');
 
 DROP TABLE IF EXISTS public.admins CASCADE;
 CREATE TABLE public.admins(
@@ -141,45 +148,11 @@ CREATE TABLE public.admins(
 );
 INSERT INTO public.admins (name, email, password)
 VALUES
-    ('sipho', 'sipho@email.com', 'sipho123');
-
-DROP TABLE IF EXISTS public.lecturer_department CASCADE;
-CREATE TABLE public.lecturer_department(
-    lecturer_department_id SERIAL NOT NULL,
-    lecturer_id INT NOT NULL,
-    department_id INT NOT NULL,
-    PRIMARY kEY (lecturer_department_id),
-    FOREIGN KEY (lecturer_id) REFERENCES public.lecturers (lecturer_id),
-    FOREIGN KEY (department_id) REFERENCES public.departments (department_id)
-);
-INSERT INTO public.lecturer_department (lecturer_id, department_id)
-VALUES
-    (1, 5),
-    (1, 10),
-    (1, 15),
-    (1, 20),
-    (2, 25),
-    (2, 30),
-    (2, 35),
-    (2, 40),
-    (3, 45),
-    (3, 50),
-    (3, 47),
-    (3, 44),
-    (4, 41),
-    (4, 38),
-    (4, 35),
-    (4, 33);
-
-DROP TABLE IF EXISTS public.alerts CASCADE;
-CREATE TABLE public.alerts(
-	alert_id serial NOT NULL, 
-    lecturer_id integer,
-	message varchar(255),
-	created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
-	Primary Key(alert_id),
-    FOREIGN KEY (lecturer_id) REFERENCES public.lecturers (lecturer_id)
-);
+    ('sihle', 'sipho@email.com', 'sihle123');
+    ('thomas', 'thomas@email.com', 'thomas123');
+    ('luke', 'luke@email.com', 'luke123');
+    ('themba', 'themba@email.com', 'themba123');
+    ('ntokozo', 'ntokozo@email.com', 'ntokozo123');
 
 DROP TABLE IF EXISTS public.schedules CASCADE;
 CREATE TABLE public.schedules
