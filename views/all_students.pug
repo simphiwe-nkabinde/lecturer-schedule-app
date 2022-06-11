@@ -8,16 +8,22 @@ block content
         table.table.table-bordere
             thead
                 tr
-                th(scope='col') ID
-                th(scope='col') Name
-                th(scope='col') email
-                th(scope='col') remove
+                    th(scope='col') ID
+                    th(scope='col') Name
+                    th(scope='col') email
+                    th(scope='col') password
+                    th(scope='col') Department
+                    th(scope='col') remove
             tbody
                 each val in students
-                    tr(id=`row-${val.id}`)  
-                        th(scope='row') #{val.id}
+                    tr(id=`row-${val.student_id}`)  
+                        th(scope='row') #{val.student_id}
                         td #{val.name}
                         td #{val.email}
+                        td #{val.password}
                         td 
-                            button.btn.btn-sm.btn-outline-secondary(onclick=`removeUser(${val.id}, 'student')`)
-                                i.bi.bi-trash-fill(onclick=`removeUser(${val.id}, 'student')`)
+                            div.text-muted.text-xs #{'('+val.faculty+')'}
+                            div #{val.department}
+                        td 
+                            button.btn.btn-sm.btn-outline-secondary(onclick=`removeUser(${val.student_id}, 'student')`)
+                                i.bi.bi-trash-fill(onclick=`removeUser(${val.student_id}, 'student')`)

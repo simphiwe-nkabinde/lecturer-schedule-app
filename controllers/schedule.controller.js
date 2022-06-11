@@ -13,7 +13,7 @@ module.exports.schedule_get = (req, res) => {
 
     pool.query(query.text, query.values)
     .then(data => {
-        res.render('schedule', { schedule: data.rows, userEmail:req.userEmail });
+        res.render('schedule', { schedule: data.rows, user: req.user });
     })
     .catch(err => {
         console.log(err);
@@ -24,13 +24,13 @@ module.exports.schedule_edit_get = (req, res) => {
     const lecturerId = req.params.lecturerId;
 
     const query = {
-        text: 'SELECT schedules.*, periods.* FROM schedules INNER JOIN periods ON schedules.period_id = periods.period_id WHERE lecturer_id = $1 ORDER BY schedules.period_id;',
+        text: 'SELECT s.*, p.*, l.name FROM (schedules s JOIN periods p ON s.period_id = p.period_id) JOIN lecturers l ON s.lecturer_id = l.lecturer_id WHERE s.lecturer_id = $1 ORDER BY s.period_id;',
         values: [lecturerId]
     }
 
     pool.query(query.text, query.values)
     .then(data => {
-        res.render('schedule_edit', { schedule: data.rows , lecturer_id: lecturerId, userEmail:req.userEmail });
+        res.render('schedule_edit', { schedule: data.rows , lecturer_id: lecturerId, user: req.user});
     })
     .catch(err => {
         console.log(err);

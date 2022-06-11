@@ -11,8 +11,8 @@ module.exports.studentOnly = (req, res, next) => {
     if (token) {
         let decoded = jwt.verify(token, 'w')
         if (decoded) {
-            if (decoded.userType === 'student') {
-                req.userEmail = decoded.email
+            if (decoded.role === 'student') {
+                req.user = decoded;
                 next()
             }
         } else {
@@ -30,8 +30,8 @@ module.exports.lecturerOnly = (req, res, next) => {
     if (token) {
         let decoded = jwt.verify(token, 'w')
         if (decoded) {
-            if (decoded.userType === 'lecturer') {
-                req.userEmail = decoded.email
+            if (decoded.role === 'lecturer') {
+                req.user = decoded;
                 next()
             }
         } else {
@@ -49,8 +49,8 @@ module.exports.lecturerAdminOnly = (req, res, next) => {
     if (token) {
         let decoded = jwt.verify(token, 'w')
         if (decoded) {
-            if (decoded.userType === 'lecturer' || decoded.userType === 'admin') {
-                req.userEmail = decoded.email
+            if (decoded.role === 'lecturer' || decoded.role === 'admin') {
+                req.user = decoded
                 next()
             }
         } else {
@@ -68,8 +68,8 @@ module.exports.adminOnly = (req, res, next) => {
     if (token) {
         let decoded = jwt.verify(token, 'w')
         if (decoded) {
-            if (decoded.userType === 'admin') {
-                req.userEmail = decoded.email
+            if (decoded.role === 'admin') {
+                req.user = decoded
                 next()
             }
         } else {
@@ -84,12 +84,11 @@ module.exports.adminOnly = (req, res, next) => {
 }
 module.exports.loggedIn = (req, res, next) => {
     let token = req.cookies.USER_TOKEN
-    console.log(token);
     if (token) {
         let decoded = jwt.verify(token, 'w')
         if (decoded) {
-            if (decoded.userType === 'lecturer' || decoded.userType === 'student' || decoded.userType === 'admin') {
-                req.userEmail = decoded.email
+            if (decoded.role === 'lecturer' || decoded.role === 'student' || decoded.role === 'admin') {
+                req.user = decoded
                 next()
             }
         } else {
@@ -101,4 +100,14 @@ module.exports.loggedIn = (req, res, next) => {
         return res.redirect('/auth/login');
         // res.status(401).json({error: 'token not found. Please Login'})
     }
+}
+module.exports.NoAuthentication = (req, res, next) => {
+    let token = req.cookies.USER_TOKEN;
+    if (token) {
+        let decoded = jwt.verify(token, 'w')
+        if (decoded) {
+            req.user = decoded
+        }
+    }
+    next()
 }

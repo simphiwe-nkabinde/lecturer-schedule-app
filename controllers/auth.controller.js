@@ -40,7 +40,7 @@ module.exports.login_get_admin = (req, res) => {
 }
 
 module.exports.register_post = (req, res) => {
-    const { name, email, password, role, departmentId } = req.body;
+    const { name, email, password, role, departmentId , facultyId} = req.body;
     let query = {
         text: '',
         value: [name, email, password]
@@ -50,9 +50,10 @@ module.exports.register_post = (req, res) => {
         query.text = `INSERT INTO students ( name, email, password , department_id) VALUES ($1, $2, $3, $4) RETURNING student_id as id, name, department_id`;
         query.value.push(departmentId)
     }
-    else if (role == 'lecturer')
-        query.text = `INSERT INTO lecturers ( name, email, password ) VALUES ($1, $2, $3) RETURNING lecturer_id as id, name`;
-    
+    else if (role == 'lecturer') {
+        query.text = `INSERT INTO lecturers ( name, email, password , faculty_id) VALUES ($1, $2, $3, $4) RETURNING lecturer_id as id, name`;
+        query.value.push(facultyId)
+    }
     else if (role == 'admin')
         query.text = `INSERT INTO admins ( name, email, password ) VALUES ($1, $2, $3) RETURNING admin_id as id, name`;
     
@@ -96,7 +97,8 @@ module.exports.login_post = (req, res) => {
                 name: data.rows[0].name,
                 email: data.rows[0].email,
                 departmentId: role == 'student' ? data.rows[0].department_id : '',
-                userType: role
+                facultyId: role == 'lecturer' ? data.rows[0].faculty_id : '',
+                role: role
             }
             let token = createToken(payload)
             res.cookie('USER_TOKEN', token, cookieOptions)
@@ -123,12 +125,12 @@ module.exports.logout = (req, res) => {
 }
 
 module.exports.getStudents = (req, res) => {
-    let queryText = 'SELECT student_id as id, name, email FROM students;'
+    let queryText = 'SELECT students.*, departments.name as department, faculties.name as faculty FROM (students JOIN departments ON students.department_id = departments.department_id) JOIN faculties ON departments.faculty_id = faculties.faculty_id;'
 
     pool.query(queryText)
     .then(data => {
         if(data.rowCount) {
-            res.render('all_students', { students: data.rows, userEmail:req.userEmail });
+            res.render('all_students', { students: data.rows, user: req.user });
         } else { return res.status(404).json('students not found')}
     })
     .catch(err => {
@@ -137,12 +139,12 @@ module.exports.getStudents = (req, res) => {
 }
 
 module.exports.getLecturers = (req, res) => {
-    let queryText = 'SELECT lecturer_id as id, name, email FROM lecturers;'
+    let queryText = 'SELECT lecturers.*, faculties.name as faculty FROM lecturers JOIN faculties ON lecturers.faculty_id = faculties.faculty_id;'
 
     pool.query(queryText)
     .then(data => {
         if(data.rowCount) {
-            res.render('all_lecturers', { lecturers: data.rows, userEmail:req.userEmail });
+            res.render('all_lecturers', { lecturers: data.rows, user: req.user});
         } else { return res.status(404).json('lecturers not found')}
     })
     .catch(err => {

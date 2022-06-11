@@ -35,12 +35,13 @@ block content
             label.form-label.text-shadow-sm(for='register-password-confirm') Confirm Password
             input#register-password-confirm.form-control.shadow-sm(type='password' required)
             #passwordConfirmAlert.form-text.text-danger
-        #student-only
+        .mb-3
             label.form-label.text-shadow-sm Faculty
             select#faculty-select.form-select.form-select-lg.mb-3(aria-label='.form-select-lg example' required onchange='getFacultyDepartments(event)')
                 option(selected disabled value='0') --Select Faculty
                 each faculty in faculties
                     option(value = faculty .id) #{faculty.name}
+        #student-only
             label.form-label.text-shadow-sm Department
             select#department-select.form-select.form-select-lg.mb-3(aria-label='.form-select-lg example' required)
                 option(selected='' hidden disabled) --Select Department

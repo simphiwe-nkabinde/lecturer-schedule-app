@@ -116,16 +116,18 @@ CREATE TABLE public.lecturers(
     name varchar(100),
     email varchar(100) UNIQUE,
     password varchar(50),
+    faculty_id INT NOT NULL,
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
-	Primary Key(lecturer_id)
+	Primary Key(lecturer_id),
+    FOREIGN KEY (faculty_id) REFERENCES public.faculties (faculty_id)
 );
-INSERT INTO public.lecturers (name, email, password)
+INSERT INTO public.lecturers (name, email, faculty_id, password)
 VALUES
-    ('david', 'david@email.com', 'david123'),
-    ('sipho', 'sipho@email.com', 'sipho123'),
-    ('karabo', 'karabo@email.com', 'karabo123'),
-    ('tina', 'tina@email.com', 'tina123');
+    ('david', 'david@email.com', 1, 'david123'),
+    ('sipho', 'sipho@email.com', 3, 'sipho123'),
+    ('karabo', 'karabo@email.com', 5, 'karabo123'),
+    ('tina', 'tina@email.com', 4, 'tina123');
 
 DROP TABLE IF EXISTS public.admins CASCADE;
 CREATE TABLE public.admins(

@@ -39,7 +39,7 @@ function getFacultyDepartments(event) {
 
 function formValidationAlert(registerFormObj) {
     for (const [key, value] of Object.entries(registerFormObj)) {
-        if (!value) {
+        if (!value) {i
             document.getElementById(`${key}Alert`).innerText = `this field is invalid`;
         }
     }
@@ -64,6 +64,7 @@ function register_onSubmit(event) {
     const email = document.getElementById('register-email').value;
     const password = document.getElementById('register-password').value;
     const passwordConfirm = document.getElementById('register-password-confirm').value;
+    const facultyId = document.getElementById('faculty-select').value;
     const departmentId = studentRadio.checked ? document.getElementById('department-select').value : '';
     let role = '';
 
@@ -77,7 +78,7 @@ function register_onSubmit(event) {
     } else if (lecturerRadio.checked){
         role = 'lecturer'
         if(!name || !email || !password || password != passwordConfirm) {
-            formValidationAlert({name, email, password, passwordConfirm})
+            formValidationAlert({name, email, password, passwordConfirm, facultyId})
             return
         }
         
@@ -89,7 +90,7 @@ function register_onSubmit(event) {
             'Content-Type': 'application/json'
         },
         credentials: "include",
-        body: JSON.stringify(studentRadio.checked ? {name, email, password, role, departmentId} : {name, email, password, role})
+        body: JSON.stringify(studentRadio.checked ? {name, email, password, role, departmentId} : {name, email, password, role, facultyId})
     })
     .then(res => res.json())
     .then(res => {
