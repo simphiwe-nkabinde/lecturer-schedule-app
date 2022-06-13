@@ -1,5 +1,5 @@
-// const HOST_URL = 'http://lecturer-schedule.herokuapp.com';
-const HOST_URL = 'http://localhost:3000';
+const HOST_URL = 'http://lecturer-schedule.herokuapp.com';
+// const HOST_URL = 'http://localhost:3000';
 
 window.onload = () => {
 
